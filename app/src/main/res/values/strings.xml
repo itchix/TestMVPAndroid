@@ -1,0 +1,156 @@
+<!--
+  ~ Copyright (C) 2017 MINDORKS NEXTGEN PRIVATE LIMITED
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://mindorks.com/license/apache-v2
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+  -->
+
+<resources>
+    <string name="app_name">Food Facts Checker</string>
+
+    <!--Toolbar menus-->
+    <string name="clear">Clear</string>
+    <string name="cut">Cut</string>
+    <string name="copy">Copy</string>
+    <string name="paste">Paste</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
+
+    <!--Drawer-->
+    <string name="open_drawer">Drawer Open</string>
+    <string name="close_drawer">Drawer Close</string>
+
+    <!--Drawer Menus-->
+    <string name="about">About</string>
+    <string name="logout">Logout</string>
+
+    <!--App Message-->
+    <string name="api_retry_error">Please retry!</string>
+    <string name="api_default_error">Something wrong happened!</string>
+    <string name="some_error">Some Error Occurred!</string>
+    <string name="connection_error">Internet connection lost!</string>
+
+    <!--Login-->
+    <string name="login_dummy">Login Dummy</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+    <!--Login Validation-->
+    <string name="empty_email">Please provide a non empty email.</string>
+    <string name="invalid_email">Please provide a valid email.</string>
+    <string name="empty_password">Please provide a non empty password.</string>
+
+    <!--about fragment-->
+    <string name="project_info">This sample app implements MVP architecture using Dagger2, GreenDao, RxJava, FastAndroidNetworking and PlaceholderView</string>
+    <string name="link_mvp_blog">1. https://blog.mindorks.com</string>
+    <string name="link_mvp_repo">2. https://github.com/MindorksOpenSource/android-mvp-architecture</string>
+    <string name="link_mindorks_blog">3. https://blog.mindorks.com</string>
+    <string name="link_mindorks_repo">4. https://github.com/MindorksOpenSource</string>
+    <string name="version">"version"</string>
+
+    <!-- Nutrition score -->
+    <string name="nutrient_level_100g">Nutrient levels for 100g :</string>
+    <string name="nutrition_level_low">in low quantity</string>
+    <string name="nutrition_level_moderate">in moderate quantity</string>
+    <string name="nutrition_level_high">in high quantity</string>
+
+    <!-- Nutrition info tab -->
+    <string name="nutrition_carbohydrate">Carbohydrate</string>
+    <string name="nutrition_carbohydrate_short_name">Carbohydrate (g)</string>
+    <string name="nutrition_cholesterol">Cholesterol</string>
+    <string name="nutrition_cholesterol_short_name">Cholesterol (g)</string>
+    <string name="nutrition_energy">Energy</string>
+    <string name="nutrition_energy_short_name">Energy</string>
+    <string name="nutrition_fat">Fat</string>
+    <string name="nutrition_fat_short_name">Fat (g)</string>
+    <string name="nutrition_fiber">Dietary fiber</string>
+    <string name="nutrition_fiber_short_name">Dietary fiber (g)</string>
+    <string name="nutrition_header">Nutrition facts</string>
+    <string name="nutrition_no_data_message">No data is available for this product</string>
+    <string name="nutrition_per_quantity">For 100g/100ml</string>
+    <string name="nutrition_proteins">Proteins</string>
+    <string name="nutrition_proteins_short_name">Proteins (g)</string>
+    <string name="nutrition_salt">Salt</string>
+    <string name="nutrition_salt_short_name">Salt (g)</string>
+    <string name="nutrition_satured_fat">Satured fat</string>
+    <string name="nutrition_satured_fat_short_name">Satured fat (g)</string>
+    <string name="nutrition_serving">Per serving</string>
+    <string name="nutrition_serving_size">Serving size :</string>
+    <string name="nutrition_sodium">Sodium</string>
+    <string name="nutrition_sodium_short_name">Sodium (g)</string>
+    <string name="nutrition_sugars">Sugars</string>
+    <string name="nutrition_sugars_short_name">Sugars (g)</string>
+    <string name="nutrition_trans_fat">Trans fat</string>
+    <string name="nutrition_trans_fat_short_name">Trans fat (g)</string>
+    <string name="nutriment_serving_size">Per portion : </string>
+    <string name="nutrition_lactose">Lactose</string>
+    <string name="nutrition_casein">Casein</string>
+    <string name="nutrition_maltodextrins">Maltodextrins</string>
+    <string name="nutrition_serum_proteins">Serum Proteins</string>
+    <string name="nutrition_nucleotides">Nucleotides</string>
+    <string name="for_100g">For 100 g</string>
+    <string name="serving">Per serving</string>
+    <string name="minerals">Minerals</string>
+    <string name="nutrition_calcium">Calcium</string>
+    <string name="nutrition_potassium">Potassium</string>
+    <string name="nutrition_chlore">Chlorine</string>
+    <string name="nutrition_magnesium">Magnesium</string>
+    <string name="nutrition_taurine">Taurine</string>
+    <string name="nutrition_monounsaturatedFat">Mono unsaturated fat</string>
+    <string name="nutrition_polyunsaturatedFat">Poly unsaturated fat</string>
+    <string name="nutrition_omega3">Omega 3</string>
+    <string name="nutrition_omega6">Omega 6</string>
+    <string name="nutrition_omega9">Omega 9</string>
+    <string name="nutrition_sucrose">Sucrose</string>
+    <string name="nutrition_glucose">Glucose</string>
+    <string name="nutrition_fructose">Fructose</string>
+    <string name="nutrition_maltose">Maltose</string>
+    <string name="nutrition_alcohol">Alcohol</string>
+    <string name="nutrition_vitamins">Vitamins</string>
+    <string name="vitamin_a">Vitamin A</string>
+    <string name="vitamin_d">Vitamin d</string>
+    <string name="vitamin_e">Vitamin e</string>
+    <string name="vitamin_k">Vitamin k</string>
+    <string name="vitamin_c">Vitamin C</string>
+    <string name="vitamin_b1">Vitamin B1</string>
+    <string name="vitamin_b2">Vitamin B2</string>
+    <string name="vitamin_pp">Vitamin PP</string>
+    <string name="vitamin_b6">Vitamin B6</string>
+    <string name="vitamin_b9">Vitamin B9</string>
+    <string name="vitamin_b12">Vitamin B12</string>
+    <string name="biotin">Biotin</string>
+    <string name="pantothenic_acid">Pantothenic acid</string>
+    <string name="nutrition_minerals">Minerals</string>
+    <string name="silica">Silica</string>
+    <string name="bicarbonate">Bicarbonate</string>
+    <string name="potassium">Potassium</string>
+    <string name="chloride">Chloride</string>
+    <string name="calcium">Calcium</string>
+    <string name="phosphorus">Phosphorus</string>
+    <string name="iron">Iron</string>
+    <string name="magnesium">Magnesium</string>
+    <string name="zinc">Zinc</string>
+    <string name="copper">Copper</string>
+    <string name="manganese">Manganese</string>
+    <string name="fluoride">Fluoride</string>
+    <string name="selenium">Selenium</string>
+    <string name="chromium">Chromium</string>
+    <string name="molybdenum">Molybdenum</string>
+    <string name="iodine">Iodine</string>
+    <string name="caffeine">Caffeine</string>
+    <string name="taurine">Taurine</string>
+    <string name="ph">pH</string>
+    <string name="fruits_vegetables_nuts">Fruits, vegetables, nuts</string>
+    <string name="collagen_meat_protein_ratio">Collagen meat protein ratio</string>
+    <string name="cocoa">Cocoa</string>
+    <string name="chlorophyl">Chlorophyl</string>
+</resources>
