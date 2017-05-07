@@ -70,6 +70,32 @@
     <string name="nutrition_level_moderate">in moderate quantity</string>
     <string name="nutrition_level_high">in high quantity</string>
 
+    <!-- Camera -->
+    <string name="toggle_flash" translatable="false">Flash</string>
+    <string name="flash_on" translatable="false">Flash [ON]</string>
+    <string name="flash_off" translatable="false">Flash [OFF]</string>
+    <string name="ring_on" translatable="false">Ring [ON]</string>
+    <string name="ring_off" translatable="false">Ring [OFF]</string>
+    <string name="auto_focus_on" translatable="false">Auto Focus [ON]</string>
+    <string name="auto_focus_off" translatable="false">Auto Focus [OFF]</string>
+    <string name="formats" translatable="false">Formats</string>
+    <string name="choose_formats" translatable="false">Choose Formats</string>
+    <string name="select_camera" translatable="false">Select a Camera</string>
+    <string name="ok_button" translatable="false">OK</string>
+    <string name="cancel_button" translatable="false">Cancel</string>
+    <string name="try_it_scan_now">Scan product</string>
+
+    <!-- Permission -->
+    <string name="permission_camera">Camera permission is needed to scan barcodes and take pictures.</string>
+    <string name="permission_title">Permission information</string>
+    <string name="permission_denied">Please activate permission in the settings</string>
+    <string name="permission_storage">Storage permission is needed to take or select pictures</string>
+
+    <!-- Common -->
+    <string name="txt_yes">Yes</string>
+    <string name="txt_no">No</string>
+    <string name="txt_ok">Ok</string>
+
     <!-- Nutrition info tab -->
     <string name="nutrition_carbohydrate">Carbohydrate</string>
     <string name="nutrition_carbohydrate_short_name">Carbohydrate (g)</string>

@@ -66,6 +66,10 @@
             android:name="com.scrachx.foodfacts.checker.ui.walkthrough.WalkthroughActivity"
             android:launchMode="singleTop" />
 
+        <activity
+            android:name=".ui.scanner.ScannerActivity"
+            android:launchMode="singleTop" />
+
     </application>
 
 </manifest>

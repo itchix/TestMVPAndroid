@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface SearchMvpView extends MvpView {
 
-    void refreshResults(List<Product> searchResult);
+    void refreshResults(List<Product> searchResult, int numberOfProducts);
 
 }

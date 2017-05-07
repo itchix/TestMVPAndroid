@@ -26,7 +26,11 @@ import com.scrachx.foodfacts.checker.ui.base.MvpPresenter;
 @PerActivity
 public interface MainMvpPresenter<V extends MainMvpView> extends MvpPresenter<V> {
 
+    void onDrawerOptionSearchClick();
+
     void onDrawerOptionAboutClick();
+
+    void onDrawerOptionScanClick();
 
     void onDrawerOptionLogoutClick();
 

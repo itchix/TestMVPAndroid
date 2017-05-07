@@ -29,6 +29,9 @@ import com.scrachx.foodfacts.checker.ui.login.LoginPresenter;
 import com.scrachx.foodfacts.checker.ui.main.MainMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.main.MainMvpView;
 import com.scrachx.foodfacts.checker.ui.main.MainPresenter;
+import com.scrachx.foodfacts.checker.ui.scanner.ScannerMvpPresenter;
+import com.scrachx.foodfacts.checker.ui.scanner.ScannerMvpView;
+import com.scrachx.foodfacts.checker.ui.scanner.ScannerPresenter;
 import com.scrachx.foodfacts.checker.ui.search.SearchMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.search.SearchMvpView;
 import com.scrachx.foodfacts.checker.ui.search.SearchPresenter;
@@ -42,10 +45,6 @@ import com.scrachx.foodfacts.checker.ui.walkthrough.WalkthroughPresenter;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
-
-/**
- * Created by janisharali on 27/01/17.
- */
 
 @Module
 public class ActivityModule {
@@ -74,41 +73,42 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    SplashMvpPresenter<SplashMvpView> provideSplashPresenter(SplashPresenter<SplashMvpView>
-                                                                     presenter) {
+    SplashMvpPresenter<SplashMvpView> provideSplashPresenter(SplashPresenter<SplashMvpView> presenter) {
         return presenter;
     }
 
     @Provides
-    AboutMvpPresenter<AboutMvpView> provideAboutPresenter(AboutPresenter<AboutMvpView>
-                                                                  presenter) {
-        return presenter;
-    }
-
-    @Provides
-    @PerActivity
-    LoginMvpPresenter<LoginMvpView> provideLoginPresenter(LoginPresenter<LoginMvpView>
-                                                                  presenter) {
+    AboutMvpPresenter<AboutMvpView> provideAboutPresenter(AboutPresenter<AboutMvpView> presenter) {
         return presenter;
     }
 
     @Provides
     @PerActivity
-    MainMvpPresenter<MainMvpView> provideMainPresenter(MainPresenter<MainMvpView>
-                                                               presenter) {
+    LoginMvpPresenter<LoginMvpView> provideLoginPresenter(LoginPresenter<LoginMvpView> presenter) {
         return presenter;
     }
 
     @Provides
     @PerActivity
-    WalkthroughMvpPresenter<WalkthroughMvpView> provideWalkthroughPresenter(WalkthroughPresenter<WalkthroughMvpView>
-                                                               presenter) {
+    MainMvpPresenter<MainMvpView> provideMainPresenter(MainPresenter<MainMvpView> presenter) {
         return presenter;
     }
 
     @Provides
-    SearchMvpPresenter<SearchMvpView> provideSearchPresenter(SearchPresenter<SearchMvpView>
-                                                                  presenter) {
+    @PerActivity
+    WalkthroughMvpPresenter<WalkthroughMvpView> provideWalkthroughPresenter(WalkthroughPresenter<WalkthroughMvpView> presenter) {
         return presenter;
     }
+
+    @Provides
+    @PerActivity
+    ScannerMvpPresenter<ScannerMvpView> provideScannerPresenter(ScannerPresenter<ScannerMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    SearchMvpPresenter<SearchMvpView> provideSearchPresenter(SearchPresenter<SearchMvpView> presenter) {
+        return presenter;
+    }
+
 }

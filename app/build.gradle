@@ -34,6 +34,22 @@ android {
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
     }
+    dexOptions {
+        preDexLibraries = false
+        javaMaxHeapSize "4g"
+    }
+    defaultConfig {
+        multiDexEnabled true
+        jackOptions.enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        abortOnError false
+        disable 'MissingTranslation'
+    }
 }
 
 greendao {
@@ -67,6 +83,12 @@ dependencies {
 
     // database
     compile "org.greenrobot:greendao:$rootProject.greenDaoVersion"
+
+    // scanner
+    compile "me.dm7.barcodescanner:zxing:$rootProject.barcodeScanner"
+
+    // dialog
+    compile "com.afollestad.material-dialogs:core:$rootProject.materialDialog"
 
     // glide
     compile "com.github.bumptech.glide:glide:$rootProject.glide"

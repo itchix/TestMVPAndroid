@@ -28,7 +28,11 @@ public interface MainMvpView extends MvpView {
 
     void openLoginActivity();
 
+    void openScannerActivity();
+
     void showAboutFragment();
+
+    void showSearchFragment();
 
     void refreshQuestionnaire(List<Question> questionList);
 

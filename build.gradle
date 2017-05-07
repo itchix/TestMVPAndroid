@@ -64,6 +64,8 @@ ext {
     timberVersion = '4.5.1'
     commonLang3 = '3.5'
     glide = '3.7.0'
+    barcodeScanner = '1.9.1'
+    materialDialog ='0.9.4.4'
 
     //Test dependencies
     junitVersion = '4.12'

@@ -28,8 +28,8 @@ public class SearchPresenter <V extends SearchMvpView> extends BasePresenter<V>
     }
 
     @Override
-    public void onLoadProducts(String searchTerms, int page) {
-        getMvpView().showLoading();
+    public void onLoadProducts(String searchTerms, final int page) {
+        if(page == 1) getMvpView().showLoading();
         getCompositeDisposable().add(getDataManager()
                 .searchProductByName(new SearchRequest(searchTerms, page))
                 .subscribeOn(Schedulers.io())
@@ -42,11 +42,11 @@ public class SearchPresenter <V extends SearchMvpView> extends BasePresenter<V>
                         }
 
                         if (searchResult != null) {
-                            getMvpView().hideLoading();
-                            getMvpView().refreshResults(searchResult.getProducts());
+                            if(page == 1) getMvpView().hideLoading();
+                            getMvpView().refreshResults(searchResult.getProducts(), Integer.parseInt(searchResult.getCount()));
                         }
 
-                        getMvpView().hideLoading();
+                        if(page == 1) getMvpView().hideLoading();
                     }
                 }, new Consumer<Throwable>() {
                         @Override

@@ -15,18 +15,24 @@
 
 package com.scrachx.foodfacts.checker.ui.main;
 
+import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -40,6 +46,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.scrachx.foodfacts.checker.BuildConfig;
 import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.db.model.Question;
@@ -47,7 +54,9 @@ import com.scrachx.foodfacts.checker.ui.about.AboutFragment;
 import com.scrachx.foodfacts.checker.ui.base.BaseActivity;
 import com.scrachx.foodfacts.checker.ui.custom.RoundedImageView;
 import com.scrachx.foodfacts.checker.ui.login.LoginActivity;
+import com.scrachx.foodfacts.checker.ui.scanner.ScannerActivity;
 import com.scrachx.foodfacts.checker.ui.search.SearchFragment;
+import com.scrachx.foodfacts.checker.utils.PermissionUtils;
 import com.scrachx.foodfacts.checker.utils.ScreenUtils;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
@@ -248,6 +257,16 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     @Override
+    public void showSearchFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .add(R.id.fragment_container, SearchFragment.newInstance(), SearchFragment.TAG)
+                .commit();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
@@ -330,6 +349,12 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         mDrawer.closeDrawer(GravityCompat.START);
                         switch (item.getItemId()) {
+                            case R.id.nav_item_search:
+                                mPresenter.onDrawerOptionSearchClick();
+                                return true;
+                            case R.id.nav_item_scan:
+                                mPresenter.onDrawerOptionScanClick();
+                                return true;
                             case R.id.nav_item_about:
                                 mPresenter.onDrawerOptionAboutClick();
                                 return true;
@@ -341,6 +366,23 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void openScannerActivity() {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.CAMERA)) {
+                new MaterialDialog.Builder(MainActivity.this)
+                        .title(R.string.about)
+                        .content(R.string.permission_camera)
+                        .neutralText(R.string.txt_ok)
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, PermissionUtils.MY_PERMISSIONS_REQUEST_CAMERA);
+            }
+        } else {
+            startActivity(ScannerActivity.getStartIntent(this));
+        }
     }
 
     @Override
@@ -362,6 +404,33 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                     .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
                     .add(R.id.fragment_container, SearchFragment.newInstance(args), SearchFragment.TAG)
                     .commit();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PermissionUtils.MY_PERMISSIONS_REQUEST_CAMERA: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startActivity(ScannerActivity.getStartIntent(this));
+                } else {
+                    new MaterialDialog.Builder(this)
+                            .title(R.string.permission_title)
+                            .content(R.string.permission_denied)
+                            .negativeText(R.string.txt_no)
+                            .positiveText(R.string.txt_yes)
+                            .onPositive((dialog, which) -> {
+                                Intent intent = new Intent();
+                                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package", getPackageName(), null);
+                                intent.setData(uri);
+                                startActivity(intent);
+                            })
+                            .show();
+                }
+                break;
+            }
         }
     }
 }

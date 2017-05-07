@@ -15,25 +15,17 @@
 
 package com.scrachx.foodfacts.checker.ui.main;
 
-import com.androidnetworking.error.ANError;
 import com.scrachx.foodfacts.checker.data.DataManager;
 import com.scrachx.foodfacts.checker.data.db.model.Question;
-import com.scrachx.foodfacts.checker.data.network.model.LogoutResponse;
 import com.scrachx.foodfacts.checker.ui.base.BasePresenter;
 
 import java.util.List;
-
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
-
-/**
- * Created by janisharali on 27/01/17.
- */
 
 public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
         implements MainMvpPresenter<V> {
@@ -46,8 +38,18 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     }
 
     @Override
+    public void onDrawerOptionSearchClick() {
+        getMvpView().showSearchFragment();
+    }
+
+    @Override
     public void onDrawerOptionAboutClick() {
         getMvpView().showAboutFragment();
+    }
+
+    @Override
+    public void onDrawerOptionScanClick() {
+        getMvpView().openScannerActivity();
     }
 
     @Override

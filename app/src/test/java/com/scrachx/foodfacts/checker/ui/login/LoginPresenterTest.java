@@ -80,10 +80,10 @@ public class LoginPresenterTest {
 
         LoginResponse loginResponse = new LoginResponse();
 
-        doReturn(Observable.just(loginResponse))
+        /*doReturn(Observable.just(loginResponse))
                 .when(mMockDataManager)
                 .doServerLoginApiCall(new LoginRequest
-                        .ServerLoginRequest(email, password));
+                        .ServerLoginRequest(email, password));*/
 
         mLoginPresenter.onServerLoginClick(email, password);
 

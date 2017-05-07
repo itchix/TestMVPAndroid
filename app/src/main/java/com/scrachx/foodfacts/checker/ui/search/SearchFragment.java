@@ -84,8 +84,7 @@ public class SearchFragment  extends BaseFragment implements SearchMvpView {
         mProductsRecyclerView.setLayoutManager(mLayoutManager);
 
         // use VERTICAL divider
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mProductsRecyclerView.getContext(),
-                DividerItemDecoration.VERTICAL);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mProductsRecyclerView.getContext(), DividerItemDecoration.VERTICAL);
         mProductsRecyclerView.addItemDecoration(dividerItemDecoration);
 
         // Retain an instance so that you can call `resetState()` for fresh searches
@@ -124,7 +123,8 @@ public class SearchFragment  extends BaseFragment implements SearchMvpView {
     }
 
     @Override
-    public void refreshResults(List<Product> searchResult) {
+    public void refreshResults(List<Product> searchResult, int numberOfProducts) {
+        mCountProducts = numberOfProducts;
         if(mProductsRecyclerView.getAdapter() == null) {
             mProducts.addAll(searchResult);
             if(mProducts.size() < mCountProducts) {

@@ -16,14 +16,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
-            android:id="@+id/nav_item_barcode"
+            android:id="@+id/nav_item_search"
             android:checked="true"
-            android:icon="@drawable/ic_info_24px"
-            android:title="@string/barcode" />
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="@string/search" />
         <item
             android:id="@+id/nav_item_scan"
             android:checked="true"
-            android:icon="@drawable/ic_info_24px"
+            android:icon="@drawable/barcode_black_24dp"
             android:title="@string/scan" />
         <item
             android:id="@+id/nav_item_history"
