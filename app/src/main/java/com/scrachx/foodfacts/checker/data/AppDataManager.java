@@ -31,6 +31,8 @@ import com.scrachx.foodfacts.checker.data.network.ApiHelper;
 import com.scrachx.foodfacts.checker.data.network.model.LoginRequest;
 import com.scrachx.foodfacts.checker.data.network.model.LoginResponse;
 import com.scrachx.foodfacts.checker.data.network.model.LogoutResponse;
+import com.scrachx.foodfacts.checker.data.network.model.Search;
+import com.scrachx.foodfacts.checker.data.network.model.SearchRequest;
 import com.scrachx.foodfacts.checker.data.prefs.PreferencesHelper;
 import com.scrachx.foodfacts.checker.di.ApplicationContext;
 import com.scrachx.foodfacts.checker.utils.AppConstants;
@@ -45,10 +47,6 @@ import javax.inject.Singleton;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
-
-/**
- * Created by janisharali on 27/01/17.
- */
 
 @Singleton
 public class AppDataManager implements DataManager {
@@ -72,11 +70,6 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public ApiHeader getApiHeader() {
-        return mApiHelper.getApiHeader();
-    }
-
-    @Override
     public String getAccessToken() {
         return mPreferencesHelper.getAccessToken();
     }
@@ -84,7 +77,6 @@ public class AppDataManager implements DataManager {
     @Override
     public void setAccessToken(String accessToken) {
         mPreferencesHelper.setAccessToken(accessToken);
-        mApiHelper.getApiHeader().getProtectedApiHeader().setAccessToken(accessToken);
     }
 
     @Override
@@ -95,29 +87,6 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<List<User>> getAllUsers() {
         return mDbHelper.getAllUsers();
-    }
-
-    @Override
-    public Observable<LoginResponse> doGoogleLoginApiCall(LoginRequest.GoogleLoginRequest
-                                                                  request) {
-        return mApiHelper.doGoogleLoginApiCall(request);
-    }
-
-    @Override
-    public Observable<LoginResponse> doFacebookLoginApiCall(LoginRequest.FacebookLoginRequest
-                                                                    request) {
-        return mApiHelper.doFacebookLoginApiCall(request);
-    }
-
-    @Override
-    public Observable<LoginResponse> doServerLoginApiCall(LoginRequest.ServerLoginRequest
-                                                                  request) {
-        return mApiHelper.doServerLoginApiCall(request);
-    }
-
-    @Override
-    public Observable<LogoutResponse> doLogoutApiCall() {
-        return mApiHelper.doLogoutApiCall();
     }
 
     @Override
@@ -181,12 +150,6 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void updateApiHeader(Long userId, String accessToken) {
-        mApiHelper.getApiHeader().getProtectedApiHeader().setUserId(userId);
-        mApiHelper.getApiHeader().getProtectedApiHeader().setAccessToken(accessToken);
-    }
-
-    @Override
     public void updateUserInfo(
             String accessToken,
             Long userId,
@@ -201,8 +164,6 @@ public class AppDataManager implements DataManager {
         setCurrentUserName(userName);
         setCurrentUserEmail(email);
         setCurrentUserProfilePicUrl(profilePicPath);
-
-        updateApiHeader(userId, accessToken);
     }
 
     @Override
@@ -303,5 +264,10 @@ public class AppDataManager implements DataManager {
                         return Observable.just(false);
                     }
                 });
+    }
+
+    @Override
+    public Observable<Search> searchProductByName(SearchRequest request) {
+        return mApiHelper.searchProductByName(request);
     }
 }

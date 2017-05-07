@@ -17,18 +17,25 @@
     <string name="app_name">Food Facts Checker</string>
 
     <!--Toolbar menus-->
+    <string name="search">Search</string>
     <string name="clear">Clear</string>
     <string name="cut">Cut</string>
     <string name="copy">Copy</string>
     <string name="paste">Paste</string>
     <string name="delete">Delete</string>
     <string name="share">Share</string>
+    <string name="search_hint">Search a product</string>
 
     <!--Drawer-->
     <string name="open_drawer">Drawer Open</string>
     <string name="close_drawer">Drawer Close</string>
 
     <!--Drawer Menus-->
+    <string name="barcode">Search by barcode</string>
+    <string name="scan">Scan</string>
+    <string name="history">History</string>
+    <string name="allergens">Allergen alert</string>
+    <string name="constribution">Your contribution</string>
     <string name="about">About</string>
     <string name="logout">Logout</string>
 

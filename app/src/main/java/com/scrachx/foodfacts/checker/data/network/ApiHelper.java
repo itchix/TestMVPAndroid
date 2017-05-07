@@ -18,6 +18,10 @@ package com.scrachx.foodfacts.checker.data.network;
 import com.scrachx.foodfacts.checker.data.network.model.LoginRequest;
 import com.scrachx.foodfacts.checker.data.network.model.LoginResponse;
 import com.scrachx.foodfacts.checker.data.network.model.LogoutResponse;
+import com.scrachx.foodfacts.checker.data.network.model.Search;
+import com.scrachx.foodfacts.checker.data.network.model.SearchRequest;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -27,13 +31,6 @@ import io.reactivex.Observable;
 
 public interface ApiHelper {
 
-    ApiHeader getApiHeader();
+    Observable<Search> searchProductByName(SearchRequest request);
 
-    Observable<LoginResponse> doGoogleLoginApiCall(LoginRequest.GoogleLoginRequest request);
-
-    Observable<LoginResponse> doFacebookLoginApiCall(LoginRequest.FacebookLoginRequest request);
-
-    Observable<LoginResponse> doServerLoginApiCall(LoginRequest.ServerLoginRequest request);
-
-    Observable<LogoutResponse> doLogoutApiCall();
 }

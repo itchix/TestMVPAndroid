@@ -19,6 +19,7 @@ import android.app.Application;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interceptors.HttpLoggingInterceptor.Level;
+import com.jacksonandroidnetworking.JacksonParserFactory;
 import com.scrachx.foodfacts.checker.data.DataManager;
 import com.scrachx.foodfacts.checker.di.component.ApplicationComponent;
 import com.scrachx.foodfacts.checker.di.component.DaggerApplicationComponent;
@@ -56,6 +57,7 @@ public class MvpApp extends Application {
         AppLogger.init();
 
         AndroidNetworking.initialize(getApplicationContext());
+        AndroidNetworking.setParserFactory(new JacksonParserFactory());
         if (BuildConfig.DEBUG) {
             AndroidNetworking.enableLogging(Level.BODY);
         }

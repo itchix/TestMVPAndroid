@@ -79,11 +79,11 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
             getDataManager().setFirstUsage(false);
             getMvpView().openWalkthroughActivity();
         } else {
-            if (getDataManager().getCurrentUserLoggedInMode() == DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType()) {
+            /*if (getDataManager().getCurrentUserLoggedInMode() == DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType()) {
                 getMvpView().openLoginActivity();
-            } else {
+            } else { */
                 getMvpView().openMainActivity();
-            }
+            // }
         }
     }
 }

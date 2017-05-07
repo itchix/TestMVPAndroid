@@ -16,6 +16,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
+            android:id="@+id/nav_item_barcode"
+            android:checked="true"
+            android:icon="@drawable/ic_info_24px"
+            android:title="@string/barcode" />
+        <item
+            android:id="@+id/nav_item_scan"
+            android:checked="true"
+            android:icon="@drawable/ic_info_24px"
+            android:title="@string/scan" />
+        <item
+            android:id="@+id/nav_item_history"
+            android:checked="true"
+            android:icon="@drawable/ic_info_24px"
+            android:title="@string/history" />
+        <item
+            android:id="@+id/nav_item_allergens"
+            android:checked="true"
+            android:icon="@drawable/ic_info_24px"
+            android:title="@string/allergens" />
+        <item
+            android:id="@+id/nav_item_contribution"
+            android:checked="true"
+            android:icon="@drawable/ic_info_24px"
+            android:title="@string/constribution" />
+        <item
             android:id="@+id/nav_item_about"
             android:checked="true"
             android:icon="@drawable/ic_info_24px"

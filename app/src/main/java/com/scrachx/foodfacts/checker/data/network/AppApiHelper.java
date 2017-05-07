@@ -15,71 +15,37 @@
 
 package com.scrachx.foodfacts.checker.data.network;
 
-import com.scrachx.foodfacts.checker.data.network.model.LoginRequest;
-import com.scrachx.foodfacts.checker.data.network.model.LoginResponse;
-import com.scrachx.foodfacts.checker.data.network.model.LogoutResponse;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
+import com.scrachx.foodfacts.checker.data.network.model.Search;
+import com.scrachx.foodfacts.checker.data.network.model.SearchRequest;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 
-/**
- * Created by janisharali on 28/01/17.
- */
 
 @Singleton
 public class AppApiHelper implements ApiHelper {
 
-    private ApiHeader mApiHeader;
-
     @Inject
-    public AppApiHelper(ApiHeader apiHeader) {
-        mApiHeader = apiHeader;
+    public AppApiHelper() {
+
     }
 
     @Override
-    public ApiHeader getApiHeader() {
-        return mApiHeader;
-    }
-
-    @Override
-    public Observable<LoginResponse> doGoogleLoginApiCall(LoginRequest.GoogleLoginRequest
-                                                                  request) {
-        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_GOOGLE_LOGIN)
-                .addHeaders(mApiHeader.getPublicApiHeader())
-                .addBodyParameter(request)
+    public Observable<Search> searchProductByName(SearchRequest request) {
+        Map<String, String> pathMap = new HashMap<>();
+        pathMap.put("search_terms", request.getSearch_terms());
+        pathMap.put("page", String.valueOf(request.getPage()));
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_SEARCH)
+                .addQueryParameter(pathMap)
                 .build()
-                .getObjectObservable(LoginResponse.class);
+                .getObjectObservable(Search.class);
     }
 
-    @Override
-    public Observable<LoginResponse> doFacebookLoginApiCall(LoginRequest.FacebookLoginRequest
-                                                                    request) {
-        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_FACEBOOK_LOGIN)
-                .addHeaders(mApiHeader.getPublicApiHeader())
-                .addBodyParameter(request)
-                .build()
-                .getObjectObservable(LoginResponse.class);
-    }
-
-    @Override
-    public Observable<LoginResponse> doServerLoginApiCall(LoginRequest.ServerLoginRequest
-                                                                  request) {
-        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_SERVER_LOGIN)
-                .addHeaders(mApiHeader.getPublicApiHeader())
-                .addBodyParameter(request)
-                .build()
-                .getObjectObservable(LoginResponse.class);
-    }
-
-    @Override
-    public Observable<LogoutResponse> doLogoutApiCall() {
-        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_LOGOUT)
-                .addHeaders(mApiHeader.getProtectedApiHeader())
-                .build()
-                .getObjectObservable(LogoutResponse.class);
-    }
 }
 

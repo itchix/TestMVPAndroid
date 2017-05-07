@@ -33,4 +33,5 @@ public class AboutPresenter<V extends AboutMvpView> extends BasePresenter<V>
     public AboutPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
         super(dataManager, compositeDisposable);
     }
+
 }

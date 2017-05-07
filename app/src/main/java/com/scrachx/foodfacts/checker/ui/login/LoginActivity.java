@@ -69,16 +69,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
                 mPasswordEditText.getText().toString());
     }
 
-    @OnClick(com.scrachx.foodfacts.checker.R.id.ib_google_login)
-    void onGoogleLoginClick(View v) {
-        mPresenter.onGoogleLoginClick();
-    }
-
-    @OnClick(com.scrachx.foodfacts.checker.R.id.ib_fb_login)
-    void onFbLoginClick(View v) {
-        mPresenter.onFacebookLoginClick();
-    }
-
     @Override
     public void openMainActivity() {
         Intent intent = MainActivity.getStartIntent(LoginActivity.this);

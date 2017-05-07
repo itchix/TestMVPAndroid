@@ -72,12 +72,6 @@ public class ApplicationModule {
     }
 
     @Provides
-    @ApiInfo
-    String provideApiKey() {
-        return BuildConfig.API_KEY;
-    }
-
-    @Provides
     @PreferenceInfo
     String providePreferenceName() {
         return AppConstants.PREF_NAME;
@@ -107,15 +101,6 @@ public class ApplicationModule {
         return appApiHelper;
     }
 
-    @Provides
-    @Singleton
-    ApiHeader.ProtectedApiHeader provideProtectedApiHeader(@ApiInfo String apiKey,
-                                                           PreferencesHelper preferencesHelper) {
-        return new ApiHeader.ProtectedApiHeader(
-                apiKey,
-                preferencesHelper.getCurrentUserId(),
-                preferencesHelper.getAccessToken());
-    }
 
     @Provides
     @Singleton

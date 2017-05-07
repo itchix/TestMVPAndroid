@@ -22,13 +22,8 @@ import com.scrachx.foodfacts.checker.data.prefs.PreferencesHelper;
 
 import io.reactivex.Observable;
 
-/**
- * Created by janisharali on 27/01/17.
- */
-
 public interface DataManager extends DbHelper, PreferencesHelper, ApiHelper {
 
-    void updateApiHeader(Long userId, String accessToken);
 
     void setUserAsLoggedOut();
 
@@ -46,10 +41,7 @@ public interface DataManager extends DbHelper, PreferencesHelper, ApiHelper {
 
     enum LoggedInMode {
 
-        LOGGED_IN_MODE_LOGGED_OUT(0),
-        LOGGED_IN_MODE_GOOGLE(1),
-        LOGGED_IN_MODE_FB(2),
-        LOGGED_IN_MODE_SERVER(3);
+        LOGGED_IN_MODE_LOGGED_OUT(0);
 
         private final int mType;
 

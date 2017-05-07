@@ -29,6 +29,9 @@ import com.scrachx.foodfacts.checker.ui.login.LoginPresenter;
 import com.scrachx.foodfacts.checker.ui.main.MainMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.main.MainMvpView;
 import com.scrachx.foodfacts.checker.ui.main.MainPresenter;
+import com.scrachx.foodfacts.checker.ui.search.SearchMvpPresenter;
+import com.scrachx.foodfacts.checker.ui.search.SearchMvpView;
+import com.scrachx.foodfacts.checker.ui.search.SearchPresenter;
 import com.scrachx.foodfacts.checker.ui.splash.SplashMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.splash.SplashMvpView;
 import com.scrachx.foodfacts.checker.ui.splash.SplashPresenter;
@@ -100,6 +103,12 @@ public class ActivityModule {
     @PerActivity
     WalkthroughMvpPresenter<WalkthroughMvpView> provideWalkthroughPresenter(WalkthroughPresenter<WalkthroughMvpView>
                                                                presenter) {
+        return presenter;
+    }
+
+    @Provides
+    SearchMvpPresenter<SearchMvpView> provideSearchPresenter(SearchPresenter<SearchMvpView>
+                                                                  presenter) {
         return presenter;
     }
 }

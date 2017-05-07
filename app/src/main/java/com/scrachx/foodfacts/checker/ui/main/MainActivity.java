@@ -15,6 +15,7 @@
 
 package com.scrachx.foodfacts.checker.ui.main;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Animatable;
@@ -25,9 +26,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +47,7 @@ import com.scrachx.foodfacts.checker.ui.about.AboutFragment;
 import com.scrachx.foodfacts.checker.ui.base.BaseActivity;
 import com.scrachx.foodfacts.checker.ui.custom.RoundedImageView;
 import com.scrachx.foodfacts.checker.ui.login.LoginActivity;
+import com.scrachx.foodfacts.checker.ui.search.SearchFragment;
 import com.scrachx.foodfacts.checker.utils.ScreenUtils;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
@@ -107,13 +112,54 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchMenuItem.getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        MenuItemCompat.setOnActionExpandListener(searchMenuItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+                // Not replace if no search has been done (no switch of fragment)
+                if (!(currentFragment instanceof SearchFragment)) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(null)
+                            .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                            .add(R.id.fragment_container, SearchFragment.newInstance(), SearchFragment.TAG)
+                            .commit();
+                }
+
+                return true;
+            }
+        });
+
+        return true;
+    }
+
+    @Override
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(AboutFragment.TAG);
-        if (fragment == null) {
+        Fragment fragmentAbout = fragmentManager.findFragmentByTag(AboutFragment.TAG);
+        Fragment fragmentSearch = fragmentManager.findFragmentByTag(SearchFragment.TAG);
+        if (fragmentAbout == null && fragmentSearch == null) {
             super.onBackPressed();
-        } else {
+        } else if(fragmentAbout != null){
             onFragmentDetached(AboutFragment.TAG);
+        } else if(fragmentSearch != null){
+            onFragmentDetached(SearchFragment.TAG);
         }
     }
 
@@ -202,35 +248,19 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Drawable drawable = item.getIcon();
-        if (drawable instanceof Animatable) {
-            ((Animatable) drawable).start();
-        }
-        switch (item.getItemId()) {
-            case R.id.action_cut:
-                return true;
-            case R.id.action_copy:
-                return true;
-            case R.id.action_share:
-                return true;
-            case R.id.action_delete:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void setUp() {
         setSupportActionBar(mToolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 mDrawer,
@@ -317,5 +347,21 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     public void openLoginActivity() {
         startActivity(LoginActivity.getStartIntent(this));
         finish();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        setIntent(intent);
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            Bundle args = new Bundle();
+            args.putString("query", query);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .disallowAddToBackStack()
+                    .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                    .add(R.id.fragment_container, SearchFragment.newInstance(args), SearchFragment.TAG)
+                    .commit();
+        }
     }
 }

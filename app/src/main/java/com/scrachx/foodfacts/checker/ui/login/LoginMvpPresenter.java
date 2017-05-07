@@ -19,17 +19,10 @@ package com.scrachx.foodfacts.checker.ui.login;
 import com.scrachx.foodfacts.checker.di.PerActivity;
 import com.scrachx.foodfacts.checker.ui.base.MvpPresenter;
 
-/**
- * Created by janisharali on 27/01/17.
- */
 
 @PerActivity
 public interface LoginMvpPresenter<V extends LoginMvpView> extends MvpPresenter<V> {
 
     void onServerLoginClick(String email, String password);
-
-    void onGoogleLoginClick();
-
-    void onFacebookLoginClick();
 
 }

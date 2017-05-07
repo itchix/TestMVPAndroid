@@ -54,7 +54,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     public void onDrawerOptionLogoutClick() {
         getMvpView().showLoading();
 
-        getCompositeDisposable().add(getDataManager().doLogoutApiCall()
+        /*getCompositeDisposable().add(getDataManager().doLogoutApiCall()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<LogoutResponse>() {
@@ -83,7 +83,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
                             handleApiError(anError);
                         }
                     }
-                }));
+                }));*/
 
     }
 

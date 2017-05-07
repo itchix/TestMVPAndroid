@@ -60,7 +60,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
         }
         getMvpView().showLoading();
 
-        getCompositeDisposable().add(getDataManager()
+        /*getCompositeDisposable().add(getDataManager()
                 .doServerLoginApiCall(new LoginRequest.ServerLoginRequest(email, password))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -99,98 +99,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                             handleApiError(anError);
                         }
                     }
-                }));
+                })); */
     }
 
-    @Override
-    public void onGoogleLoginClick() {
-        // instruct LoginActivity to initiate google login
-        getMvpView().showLoading();
-
-        getCompositeDisposable().add(getDataManager()
-                .doGoogleLoginApiCall(new LoginRequest.GoogleLoginRequest("test1", "test1"))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<LoginResponse>() {
-                    @Override
-                    public void accept(LoginResponse response) throws Exception {
-                        getDataManager().updateUserInfo(
-                                response.getAccessToken(),
-                                response.getUserId(),
-                                DataManager.LoggedInMode.LOGGED_IN_MODE_GOOGLE,
-                                response.getUserName(),
-                                response.getUserEmail(),
-                                response.getGoogleProfilePicUrl());
-
-                        if (!isViewAttached()) {
-                            return;
-                        }
-
-                        getMvpView().hideLoading();
-                        getMvpView().openMainActivity();
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-
-                        if (!isViewAttached()) {
-                            return;
-                        }
-
-                        getMvpView().hideLoading();
-
-                        // handle the login error here
-                        if (throwable instanceof ANError) {
-                            ANError anError = (ANError) throwable;
-                            handleApiError(anError);
-                        }
-                    }
-                }));
-    }
-
-    @Override
-    public void onFacebookLoginClick() {
-        // instruct LoginActivity to initiate facebook login
-        getMvpView().showLoading();
-
-        getCompositeDisposable().add(getDataManager()
-                .doFacebookLoginApiCall(new LoginRequest.FacebookLoginRequest("test3", "test4"))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<LoginResponse>() {
-                    @Override
-                    public void accept(LoginResponse response) throws Exception {
-                        getDataManager().updateUserInfo(
-                                response.getAccessToken(),
-                                response.getUserId(),
-                                DataManager.LoggedInMode.LOGGED_IN_MODE_FB,
-                                response.getUserName(),
-                                response.getUserEmail(),
-                                response.getGoogleProfilePicUrl());
-
-                        if (!isViewAttached()) {
-                            return;
-                        }
-
-                        getMvpView().hideLoading();
-                        getMvpView().openMainActivity();
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-
-                        if (!isViewAttached()) {
-                            return;
-                        }
-
-                        getMvpView().hideLoading();
-
-                        // handle the login error here
-                        if (throwable instanceof ANError) {
-                            ANError anError = (ANError) throwable;
-                            handleApiError(anError);
-                        }
-                    }
-                }));
-    }
 }

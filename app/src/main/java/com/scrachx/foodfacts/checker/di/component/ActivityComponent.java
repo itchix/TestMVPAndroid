@@ -20,6 +20,7 @@ import com.scrachx.foodfacts.checker.di.module.ActivityModule;
 import com.scrachx.foodfacts.checker.ui.about.AboutFragment;
 import com.scrachx.foodfacts.checker.ui.login.LoginActivity;
 import com.scrachx.foodfacts.checker.ui.main.MainActivity;
+import com.scrachx.foodfacts.checker.ui.search.SearchFragment;
 import com.scrachx.foodfacts.checker.ui.splash.SplashActivity;
 import com.scrachx.foodfacts.checker.ui.walkthrough.WalkthroughActivity;
 
@@ -38,4 +39,7 @@ public interface ActivityComponent {
     void inject(SplashActivity activity);
 
     void inject(AboutFragment fragment);
+
+    void inject(SearchFragment fragment);
+
 }
