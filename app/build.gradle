@@ -88,6 +88,9 @@ dependencies {
     // scanner
     compile "me.dm7.barcodescanner:zxing:$rootProject.barcodeScanner"
 
+    // apache
+    compile "commons-validator:commons-validator:$rootProject.apacheValidator"
+
     // dialog
     compile "com.afollestad.material-dialogs:core:$rootProject.materialDialog"
 

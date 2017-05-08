@@ -26,6 +26,8 @@ import com.scrachx.foodfacts.checker.ui.base.MvpPresenter;
 @PerActivity
 public interface MainMvpPresenter<V extends MainMvpView> extends MvpPresenter<V> {
 
+    void loadProduct(String barcode);
+
     void onDrawerOptionSearchClick();
 
     void onDrawerOptionAboutClick();

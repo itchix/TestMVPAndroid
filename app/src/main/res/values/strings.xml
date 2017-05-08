@@ -115,6 +115,7 @@
     <string name="txt_no">No</string>
     <string name="txt_ok">Ok</string>
     <string name="txt_no_data">No data</string>
+    <string name="no_product_found">Product not found</string>
     <string name="msg_share">Look at this product on Open Food Facts :</string>
     <string name="txt_home">Open Food Facts is a open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information we can find on product labels.</string>
 

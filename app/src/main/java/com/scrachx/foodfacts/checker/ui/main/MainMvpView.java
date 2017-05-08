@@ -16,6 +16,7 @@
 package com.scrachx.foodfacts.checker.ui.main;
 
 import com.scrachx.foodfacts.checker.data.db.model.Question;
+import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.MvpView;
 
 import java.util.List;
@@ -25,6 +26,8 @@ import java.util.List;
  */
 
 public interface MainMvpView extends MvpView {
+
+    void openPageProduct(State stateProduct);
 
     void openLoginActivity();
 

@@ -15,8 +15,10 @@
 
 package com.scrachx.foodfacts.checker.ui.main;
 
+import com.androidnetworking.error.ANError;
 import com.scrachx.foodfacts.checker.data.DataManager;
 import com.scrachx.foodfacts.checker.data.db.model.Question;
+import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BasePresenter;
 
 import java.util.List;
@@ -35,6 +37,47 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     @Inject
     public MainPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
         super(dataManager, compositeDisposable);
+    }
+
+    @Override
+    public void loadProduct(String barcode) {
+        getCompositeDisposable().add(getDataManager()
+                .searchProductByBarcode(barcode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<State>() {
+                    @Override
+                    public void accept(State stateProduct) throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        getMvpView().hideLoading();
+                        if (stateProduct != null) {
+                            if(stateProduct.getStatus() == 1) {
+                                getMvpView().openPageProduct(stateProduct);
+                            } else {
+                                getMvpView().onError(barcode);
+                            }
+
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
+                        getMvpView().hideLoading();
+
+                        // handle the login error here
+                        if (throwable instanceof ANError) {
+                            ANError anError = (ANError) throwable;
+                            handleApiError(anError);
+                        }
+                    }
+                }));
     }
 
     @Override

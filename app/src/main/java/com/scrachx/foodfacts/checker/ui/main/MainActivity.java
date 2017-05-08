@@ -20,8 +20,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
+import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,7 +30,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -50,10 +48,12 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.scrachx.foodfacts.checker.BuildConfig;
 import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.db.model.Question;
+import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.about.AboutFragment;
 import com.scrachx.foodfacts.checker.ui.base.BaseActivity;
 import com.scrachx.foodfacts.checker.ui.custom.RoundedImageView;
 import com.scrachx.foodfacts.checker.ui.login.LoginActivity;
+import com.scrachx.foodfacts.checker.ui.product.ProductActivity;
 import com.scrachx.foodfacts.checker.ui.scanner.ScannerActivity;
 import com.scrachx.foodfacts.checker.ui.search.SearchFragment;
 import com.scrachx.foodfacts.checker.utils.PermissionUtils;
@@ -68,10 +68,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-/**
- * Created by janisharali on 27/01/17.
- */
 
 public class MainActivity extends BaseActivity implements MainMvpView {
 
@@ -93,12 +89,10 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @BindView(R.id.cards_container)
     SwipePlaceHolderView mCardsContainerView;
 
+    SearchView mSearchView;
     private TextView mNameTextView;
-
     private TextView mEmailTextView;
-
     private RoundedImageView mProfileImageView;
-
     private ActionBarDrawerToggle mDrawerToggle;
 
     public static Intent getStartIntent(Context context) {
@@ -128,8 +122,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         // Associate searchable configuration with the SearchView
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchMenuItem.getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        mSearchView = (SearchView) searchMenuItem.getActionView();
+        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         MenuItemCompat.setOnActionExpandListener(searchMenuItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
@@ -386,6 +380,18 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     @Override
+    public void onError(String message) {
+        super.onError(getString(R.string.no_product_found) + " " +message);
+    }
+
+    @Override
+    public void openPageProduct(State stateProduct) {
+        Bundle args = new Bundle();
+        args.putParcelable("state", stateProduct);
+        startActivity(ProductActivity.getStartIntent(this, args));
+    }
+
+    @Override
     public void openLoginActivity() {
         startActivity(LoginActivity.getStartIntent(this));
         finish();
@@ -398,12 +404,17 @@ public class MainActivity extends BaseActivity implements MainMvpView {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Bundle args = new Bundle();
             args.putString("query", query);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .disallowAddToBackStack()
-                    .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                    .add(R.id.fragment_container, SearchFragment.newInstance(args), SearchFragment.TAG)
-                    .commit();
+            if (EAN13CheckDigit.EAN13_CHECK_DIGIT.isValid(query) && (!query.substring(0, 3).contains("977") || !query.substring(0, 3).contains("978") || !query.substring(0, 3).contains("979"))) {
+                mPresenter.loadProduct(query);
+            } else {
+                mSearchView.clearFocus();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .disallowAddToBackStack()
+                        .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                        .add(R.id.fragment_container, SearchFragment.newInstance(args), SearchFragment.TAG)
+                        .commit();
+            }
         }
     }
 

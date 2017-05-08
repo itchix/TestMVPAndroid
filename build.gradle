@@ -66,6 +66,7 @@ ext {
     glide = '3.7.0'
     barcodeScanner = '1.9.1'
     materialDialog ='0.9.4.4'
+    apacheValidator = '1.5.1'
 
     //Test dependencies
     junitVersion = '4.12'

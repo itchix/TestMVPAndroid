@@ -8,4 +8,6 @@ import com.scrachx.foodfacts.checker.ui.base.MvpView;
 
 public interface ProductMvpView extends MvpView {
 
+    void openScannerActivity();
+
 }

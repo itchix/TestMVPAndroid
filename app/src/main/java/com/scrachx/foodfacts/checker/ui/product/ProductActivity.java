@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
@@ -24,7 +23,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BaseActivity;
-import com.scrachx.foodfacts.checker.ui.main.MainActivity;
+import com.scrachx.foodfacts.checker.ui.scanner.ScannerActivity;
 import com.scrachx.foodfacts.checker.utils.PermissionUtils;
 
 import javax.inject.Inject;
@@ -161,7 +160,7 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PermissionUtils.MY_PERMISSIONS_REQUEST_CAMERA);
             }
         } else {
-            finish();
+            mPresenter.onScannerClick();
         }
     }
 
@@ -184,9 +183,16 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
                                 startActivity(intent);
                             })
                             .show();
+                } else {
+                    mPresenter.onScannerClick();
                 }
             }
         }
     }
 
+    @Override
+    public void openScannerActivity() {
+        startActivity(ScannerActivity.getStartIntent(this));
+        finish();
+    }
 }

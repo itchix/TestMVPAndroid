@@ -71,6 +71,7 @@ public class SearchFragment  extends BaseFragment implements SearchMvpView {
 
     @Override
     protected void setUp(View view) {
+
         mProductsRecyclerView = (RecyclerView) view.findViewById(R.id.products_recycler_view);
 
         mProducts = new ArrayList<>();

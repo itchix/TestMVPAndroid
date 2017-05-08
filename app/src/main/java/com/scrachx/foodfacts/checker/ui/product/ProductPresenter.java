@@ -20,4 +20,8 @@ public class ProductPresenter <V extends ProductMvpView> extends BasePresenter<V
         super(dataManager, compositeDisposable);
     }
 
+    @Override
+    public void onScannerClick() {
+        getMvpView().openScannerActivity();
+    }
 }

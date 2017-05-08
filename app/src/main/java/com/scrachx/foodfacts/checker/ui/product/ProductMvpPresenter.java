@@ -8,4 +8,7 @@ import com.scrachx.foodfacts.checker.ui.base.MvpPresenter;
  */
 @PerActivity
 public interface ProductMvpPresenter <V extends ProductMvpView> extends MvpPresenter<V> {
+
+    void onScannerClick();
+
 }
