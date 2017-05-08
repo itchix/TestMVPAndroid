@@ -15,9 +15,11 @@
 
 package com.scrachx.foodfacts.checker.data.db;
 
+import com.scrachx.foodfacts.checker.data.db.model.History;
 import com.scrachx.foodfacts.checker.data.db.model.Option;
 import com.scrachx.foodfacts.checker.data.db.model.Question;
 import com.scrachx.foodfacts.checker.data.db.model.User;
+import com.scrachx.foodfacts.checker.ui.history.HistoryItem;
 
 import java.util.List;
 
@@ -29,6 +31,10 @@ import io.reactivex.Observable;
  */
 
 public interface DbHelper {
+
+    Observable<Long> insertHistory(final History history);
+
+    Observable<HistoryItem> getHistory(final int page);
 
     Observable<Long> insertUser(final User user);
 

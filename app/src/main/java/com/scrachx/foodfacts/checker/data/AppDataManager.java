@@ -23,6 +23,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.$Gson$Types;
 import com.google.gson.reflect.TypeToken;
 import com.scrachx.foodfacts.checker.data.db.DbHelper;
+import com.scrachx.foodfacts.checker.data.db.model.History;
 import com.scrachx.foodfacts.checker.data.db.model.Option;
 import com.scrachx.foodfacts.checker.data.db.model.Question;
 import com.scrachx.foodfacts.checker.data.db.model.User;
@@ -36,6 +37,7 @@ import com.scrachx.foodfacts.checker.data.network.model.SearchRequest;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.data.prefs.PreferencesHelper;
 import com.scrachx.foodfacts.checker.di.ApplicationContext;
+import com.scrachx.foodfacts.checker.ui.history.HistoryItem;
 import com.scrachx.foodfacts.checker.utils.AppConstants;
 import com.scrachx.foodfacts.checker.utils.CommonUtils;
 
@@ -78,6 +80,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setAccessToken(String accessToken) {
         mPreferencesHelper.setAccessToken(accessToken);
+    }
+
+    @Override
+    public Observable<Long> insertHistory(History history) {
+        return mDbHelper.insertHistory(history);
+    }
+
+    @Override
+    public Observable<HistoryItem> getHistory(int page) {
+        return mDbHelper.getHistory(page);
     }
 
     @Override

@@ -91,6 +91,9 @@ dependencies {
     // apache
     compile "commons-validator:commons-validator:$rootProject.apacheValidator"
 
+    // chart
+    compile "com.github.PhilJay:MPAndroidChart:$rootProject.mpChart"
+
     // dialog
     compile "com.afollestad.material-dialogs:core:$rootProject.materialDialog"
 

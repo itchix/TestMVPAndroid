@@ -21,10 +21,14 @@ import android.view.MenuItem;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.scrachx.foodfacts.checker.R;
+import com.scrachx.foodfacts.checker.data.db.model.History;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BaseActivity;
 import com.scrachx.foodfacts.checker.ui.scanner.ScannerActivity;
 import com.scrachx.foodfacts.checker.utils.PermissionUtils;
+
+import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -134,7 +138,9 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
 
         Intent intent = getIntent();
         mState = (State) intent.getBundleExtra("bundle").getParcelable("state");
+        mPresenter.saveProduct(mState.getProduct());
     }
+
 
     private void setupViewPager(ViewPager viewPager) {
         String[] menuTitles = getResources().getStringArray(R.array.nav_drawer_items_product);

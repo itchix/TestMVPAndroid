@@ -1,10 +1,8 @@
-package com.scrachx.foodfacts.checker.ui.search;
+package com.scrachx.foodfacts.checker.ui.history;
 
 import com.androidnetworking.error.ANError;
 import com.scrachx.foodfacts.checker.data.DataManager;
-import com.scrachx.foodfacts.checker.data.network.model.Product;
-import com.scrachx.foodfacts.checker.data.network.model.Search;
-import com.scrachx.foodfacts.checker.data.network.model.SearchRequest;
+import com.scrachx.foodfacts.checker.data.db.model.History;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BasePresenter;
 
@@ -18,54 +16,34 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by scots on 07/05/2017.
+ * Created by scots on 08/05/2017.
  */
 
-public class SearchPresenter <V extends SearchMvpView> extends BasePresenter<V> implements SearchMvpPresenter<V> {
+public class HistoryPresenter <V extends HistoryMvpView> extends BasePresenter<V> implements HistoryMvpPresenter<V> {
 
     @Inject
-    public SearchPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
+    public HistoryPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
         super(dataManager, compositeDisposable);
     }
 
     @Override
-    public void onLoadProducts(String searchTerms, final int page) {
-        if(page == 1) getMvpView().showLoading();
+    public void onLoadProducts(int page) {
         getCompositeDisposable().add(getDataManager()
-                .searchProductByName(new SearchRequest(searchTerms, page))
+                .getHistory(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Search>() {
+                .subscribe(new Consumer<HistoryItem>() {
                     @Override
-                    public void accept(Search searchResult) throws Exception {
+                    public void accept(HistoryItem historyItem) throws Exception {
                         if (!isViewAttached()) {
                             return;
                         }
 
-                        if (searchResult != null) {
-                            if(page == 1) getMvpView().hideLoading();
-                            getMvpView().refreshResults(searchResult.getProducts(), Integer.parseInt(searchResult.getCount()));
+                        if (historyItem != null) {
+                            getMvpView().loadHistory(historyItem.getProductsHistory(), historyItem.getCount());
                         }
-
-                        if(page == 1) getMvpView().hideLoading();
                     }
-                }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-
-                            if (!isViewAttached()) {
-                                return;
-                            }
-
-                            getMvpView().hideLoading();
-
-                            // handle the login error here
-                            if (throwable instanceof ANError) {
-                                ANError anError = (ANError) throwable;
-                                handleApiError(anError);
-                            }
-                        }
-                    }));
+                }));
     }
 
     @Override

@@ -31,6 +31,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 
@@ -67,6 +68,7 @@ ext {
     barcodeScanner = '1.9.1'
     materialDialog ='0.9.4.4'
     apacheValidator = '1.5.1'
+    mpChart = 'v3.0.2'
 
     //Test dependencies
     junitVersion = '4.12'

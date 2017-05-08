@@ -1,4 +1,4 @@
-package com.scrachx.foodfacts.checker.ui.search;
+package com.scrachx.foodfacts.checker.ui.history;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.scrachx.foodfacts.checker.R;
+import com.scrachx.foodfacts.checker.data.db.model.History;
 import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BaseFragment;
 import com.scrachx.foodfacts.checker.ui.custom.EndlessRecyclerViewScrollListener;
+import com.scrachx.foodfacts.checker.ui.search.ProductsRecyclerViewAdapter;
 import com.scrachx.foodfacts.checker.ui.custom.RecyclerItemClickListener;
 import com.scrachx.foodfacts.checker.ui.product.ProductActivity;
 
@@ -24,44 +26,36 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
+/**
+ * Created by scots on 08/05/2017.
+ */
 
-public class SearchFragment  extends BaseFragment implements SearchMvpView {
+public class HistoryFragment extends BaseFragment implements HistoryMvpView {
 
-    public static final String TAG = "SearchFragment";
+    public static final String TAG = "HistoryFragment";
+
+    @Inject
+    HistoryMvpPresenter<HistoryMvpView> mPresenter;
 
     private RecyclerView mProductsRecyclerView;
     private EndlessRecyclerViewScrollListener mScrollListener;
-    private List<Product> mProducts;
+    private List<History> mProductsHistory;
     private int mCountProducts = 0;
 
-    @Inject
-    SearchMvpPresenter<SearchMvpView> mPresenter;
-
-    public static SearchFragment newInstance(Bundle args) {
-        SearchFragment fragment = new SearchFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public static SearchFragment newInstance() {
+    public static HistoryFragment newInstance() {
         Bundle args = new Bundle();
-        SearchFragment fragment = new SearchFragment();
+        HistoryFragment fragment = new HistoryFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-
         getActivityComponent().inject(this);
-
         setUnBinder(ButterKnife.bind(this, view));
-
         mPresenter.onAttach(this);
-
         setUp(view);
 
         return view;
@@ -72,7 +66,7 @@ public class SearchFragment  extends BaseFragment implements SearchMvpView {
 
         mProductsRecyclerView = (RecyclerView) view.findViewById(R.id.products_recycler_view);
 
-        mProducts = new ArrayList<>();
+        mProductsHistory = new ArrayList<>();
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -90,8 +84,8 @@ public class SearchFragment  extends BaseFragment implements SearchMvpView {
         mScrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                if(mProducts.size() < mCountProducts) {
-                    mPresenter.onLoadProducts(getArguments().getString("query"), page);
+                if(mProductsHistory.size() < mCountProducts) {
+                    mPresenter.onLoadProducts(page);
                 }
             }
         };
@@ -111,7 +105,7 @@ public class SearchFragment  extends BaseFragment implements SearchMvpView {
                 })
         );
 
-        mPresenter.onLoadProducts(getArguments().getString("query"), 1);
+        mPresenter.onLoadProducts(1);
     }
 
     @Override
@@ -121,24 +115,24 @@ public class SearchFragment  extends BaseFragment implements SearchMvpView {
     }
 
     @Override
-    public void refreshResults(List<Product> searchResult, int numberOfProducts) {
-        mCountProducts = numberOfProducts;
+    public void loadHistory(List<History> productsHistory, long numberOfProductsHistory) {
+        mCountProducts = (int)numberOfProductsHistory;
         if(mProductsRecyclerView.getAdapter() == null) {
-            mProducts.addAll(searchResult);
-            if(mProducts.size() < mCountProducts) {
-                mProducts.add(null);
+            mProductsHistory.addAll(productsHistory);
+            if(mProductsHistory.size() < mCountProducts) {
+                mProductsHistory.add(null);
             }
-            ProductsRecyclerViewAdapter adapter = new ProductsRecyclerViewAdapter(mProducts);
+            HistoryRecyclerViewAdapter adapter = new HistoryRecyclerViewAdapter(mProductsHistory);
             mProductsRecyclerView.setAdapter(adapter);
         } else {
-            final int posStart = mProducts.size();
-            if (mProducts.size() - 1 < mCountProducts + 1) {
-                mProducts.remove(mProducts.size() - 1);
-                mProducts.addAll(searchResult);
-                if(mProducts.size() < mCountProducts) {
-                    mProducts.add(null);
+            final int posStart = mProductsHistory.size();
+            if (mProductsHistory.size() - 1 < mCountProducts + 1) {
+                mProductsHistory.remove(mProductsHistory.size() - 1);
+                mProductsHistory.addAll(productsHistory);
+                if(mProductsHistory.size() < mCountProducts) {
+                    mProductsHistory.add(null);
                 }
-                mProductsRecyclerView.getAdapter().notifyItemRangeChanged(posStart - 1, mProducts.size() - 1);
+                mProductsRecyclerView.getAdapter().notifyItemRangeChanged(posStart - 1, mProductsHistory.size() - 1);
             }
         }
     }

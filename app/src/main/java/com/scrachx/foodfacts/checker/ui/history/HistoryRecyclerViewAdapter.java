@@ -1,4 +1,4 @@
-package com.scrachx.foodfacts.checker.ui.search;
+package com.scrachx.foodfacts.checker.ui.history;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,25 +11,29 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.scrachx.foodfacts.checker.R;
+import com.scrachx.foodfacts.checker.data.db.model.History;
 import com.scrachx.foodfacts.checker.data.network.model.Product;
+import com.scrachx.foodfacts.checker.ui.search.ProductsRecyclerViewAdapter;
+
 import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
- * @author herau & itchix
+ * Created by scots on 08/05/2017.
  */
-public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter {
+
+public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter {
 
     private static final int VIEW_ITEM = 1;
     private static final int VIEW_LOAD = 0;
 
     private Context context;
-    private final List<Product> products;
+    private final List<History> productsHistory;
 
-    public ProductsRecyclerViewAdapter(List<Product> items){
-        this.products = items;
+    public HistoryRecyclerViewAdapter(List<History> items){
+        this.productsHistory = items;
     }
 
     @Override
@@ -40,42 +44,42 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter {
         View v = LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent, false);
 
         if (viewType == VIEW_ITEM) {
-            return new ProductViewHolder(v);
+            return new HistoryRecyclerViewAdapter.HistoryViewHolder(v);
         } else {
-            return new ProgressViewHolder(v);
+            return new HistoryRecyclerViewAdapter.HistoryViewHolder(v);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        return products.get(position) != null ? VIEW_ITEM : VIEW_LOAD;
+        return productsHistory.get(position) != null ? VIEW_ITEM : VIEW_LOAD;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        if (holder instanceof ProductViewHolder) {
-            ProductViewHolder productHolder = (ProductViewHolder) holder;
+        if (holder instanceof HistoryRecyclerViewAdapter.HistoryViewHolder) {
+            HistoryRecyclerViewAdapter.HistoryViewHolder productHolder = (HistoryRecyclerViewAdapter.HistoryViewHolder) holder;
             Glide.with(context)
-                    .load(products.get(position).getImageSmallUrl())
+                    .load(productsHistory.get(position).getUrl())
                     .centerCrop()
                     .placeholder(R.drawable.ic_insert_photo_black_24dp)
                     .error(R.drawable.ic_error_black_24dp)
                     .fitCenter()
                     .into(productHolder.vProductImage);
 
-            Product product = products.get(position);
+            History history = productsHistory.get(position);
 
-            productHolder.vProductName.setText(product.getProductName());
+            productHolder.vProductName.setText(history.getTitle());
 
             StringBuilder stringBuilder = new StringBuilder();
-            if (isNotEmpty(product.getBrands())) {
-                stringBuilder.append(capitalize(product.getBrands().split(",")[0].trim()));
+            if (isNotEmpty(history.getBrands())) {
+                stringBuilder.append(capitalize(history.getBrands().split(",")[0].trim()));
             }
 
-            if (isNotEmpty(product.getQuantity())) {
-                stringBuilder.append(" - ").append(product.getQuantity());
+            if (isNotEmpty(history.getQuantity())) {
+                stringBuilder.append(" - ").append(history.getQuantity());
             }
 
             productHolder.vProductDetails.setText(stringBuilder.toString());
@@ -83,26 +87,26 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter {
 
     }
 
-    public Product getProduct(int position) {
-        return products.get(position);
+    public History getHistory(int position) {
+        return productsHistory.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return productsHistory.size();
     }
 
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    static class ProductViewHolder extends RecyclerView.ViewHolder {
+    static class HistoryViewHolder extends RecyclerView.ViewHolder {
 
         ImageView vProductImage;
         TextView vProductName;
         TextView vProductDetails;
 
-        ProductViewHolder(View v) {
+        HistoryViewHolder(View v) {
             super(v);
             vProductImage = (ImageView) v.findViewById(R.id.img_product);
             vProductName = (TextView) v.findViewById(R.id.name_product);
@@ -120,4 +124,3 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
 }
-
