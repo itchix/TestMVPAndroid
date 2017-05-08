@@ -1,5 +1,8 @@
 package com.scrachx.foodfacts.checker.data.network.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class NutrientLevels implements Serializable {
+public class NutrientLevels implements Serializable, Parcelable {
 
     private NutrimentLevel salt;
     private NutrimentLevel fat;
@@ -20,6 +23,10 @@ public class NutrientLevels implements Serializable {
     private NutrimentLevel saturatedFat;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<>();
+
+    public NutrientLevels() {
+
+    }
 
     /**
      *
@@ -113,4 +120,38 @@ public class NutrientLevels implements Serializable {
                 ", additionalProperties=" + additionalProperties +
                 '}';
     }
+
+    protected NutrientLevels(Parcel in) {
+        salt = (NutrimentLevel) in.readValue(NutrimentLevel.class.getClassLoader());
+        fat = (NutrimentLevel) in.readValue(NutrimentLevel.class.getClassLoader());
+        sugars = (NutrimentLevel) in.readValue(NutrimentLevel.class.getClassLoader());
+        saturatedFat = (NutrimentLevel) in.readValue(NutrimentLevel.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(salt);
+        dest.writeValue(fat);
+        dest.writeValue(sugars);
+        dest.writeValue(saturatedFat);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<NutrientLevels> CREATOR = new Parcelable.Creator<NutrientLevels>() {
+        @Override
+        public NutrientLevels createFromParcel(Parcel in) {
+            return new NutrientLevels(in);
+        }
+
+        @Override
+        public NutrientLevels[] newArray(int size) {
+            return new NutrientLevels[size];
+        }
+    };
+
 }

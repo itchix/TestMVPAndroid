@@ -12,9 +12,12 @@ import android.view.ViewGroup;
 import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.data.network.model.Search;
+import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BaseFragment;
 import com.scrachx.foodfacts.checker.ui.custom.EndlessRecyclerViewScrollListener;
 import com.scrachx.foodfacts.checker.ui.custom.RecyclerItemClickListener;
+import com.scrachx.foodfacts.checker.ui.main.MainActivity;
+import com.scrachx.foodfacts.checker.ui.product.ProductActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +26,6 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
-/**
- * Created by scots on 07/05/2017.
- */
 
 public class SearchFragment  extends BaseFragment implements SearchMvpView {
 
@@ -106,8 +106,7 @@ public class SearchFragment  extends BaseFragment implements SearchMvpView {
                     public void onItemClick(View view, int position) {
                         Product p = ((ProductsRecyclerViewAdapter) mProductsRecyclerView.getAdapter()).getProduct(position);
                         if(p != null) {
-                            String barcode = p.getCode();
-                            //api.getProduct(barcode, getActivity());
+                            mPresenter.loadProduct(p.getCode());
                         }
                     }
                 })
@@ -144,4 +143,12 @@ public class SearchFragment  extends BaseFragment implements SearchMvpView {
             }
         }
     }
+
+    @Override
+    public void openPageProduct(State stateProduct) {
+        Bundle args = new Bundle();
+        args.putParcelable("state", stateProduct);
+        startActivity(ProductActivity.getStartIntent(this.getActivity(), args));
+    }
+
 }

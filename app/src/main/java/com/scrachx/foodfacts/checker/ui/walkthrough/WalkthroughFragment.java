@@ -3,7 +3,6 @@ package com.scrachx.foodfacts.checker.ui.walkthrough;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,13 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.scrachx.foodfacts.checker.R;
+import com.scrachx.foodfacts.checker.ui.base.BaseFragment;
 
 /**
  * Created by scots on 06/05/2017.
  */
 @SuppressLint("ValidFragment")
-public class WalkthroughFragment extends Fragment {
+public class WalkthroughFragment extends BaseFragment {
 
     int mWizardPagePosition;
 
@@ -42,4 +42,8 @@ public class WalkthroughFragment extends Fragment {
                 .into(img);
     }
 
+    @Override
+    protected void setUp(View view) {
+
+    }
 }

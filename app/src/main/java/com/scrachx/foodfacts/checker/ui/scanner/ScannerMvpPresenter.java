@@ -10,4 +10,6 @@ import com.scrachx.foodfacts.checker.ui.base.MvpPresenter;
 @PerActivity
 public interface ScannerMvpPresenter <V extends ScannerMvpView> extends MvpPresenter<V> {
 
+    void loadProduct(String barcode);
+
 }

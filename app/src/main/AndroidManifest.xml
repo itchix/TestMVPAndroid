@@ -70,6 +70,11 @@
             android:name=".ui.scanner.ScannerActivity"
             android:launchMode="singleTop" />
 
+        <activity
+            android:name=".ui.product.ProductActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.main.MainActivity"/>
+
     </application>
 
 </manifest>

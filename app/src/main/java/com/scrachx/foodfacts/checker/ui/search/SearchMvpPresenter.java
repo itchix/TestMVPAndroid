@@ -12,4 +12,6 @@ public interface SearchMvpPresenter <V extends SearchMvpView> extends MvpPresent
 
     void onLoadProducts(String searchTerms, int page);
 
+    void loadProduct(String barcode);
+
 }

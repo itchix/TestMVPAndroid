@@ -1,5 +1,8 @@
 package com.scrachx.foodfacts.checker.data.network.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,7 +21,7 @@ import java.util.Map;
         "product",
         "code"
 })
-public class State implements Serializable {
+public class State implements Serializable, Parcelable {
 
     @JsonProperty("status_verbose")
     private String statusVerbose;
@@ -27,6 +30,10 @@ public class State implements Serializable {
     private String code;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<>();
+
+    public State() {
+
+    }
 
     /**
      *
@@ -145,4 +152,37 @@ public class State implements Serializable {
                 ", additionalProperties=" + additionalProperties +
                 '}';
     }
+
+    protected State(Parcel in) {
+        statusVerbose = in.readString();
+        status = in.readLong();
+        product = (Product) in.readValue(Product.class.getClassLoader());
+        code = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(statusVerbose);
+        parcel.writeLong(status);
+        parcel.writeValue(product);
+        parcel.writeString(code);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<State> CREATOR = new Parcelable.Creator<State>() {
+        @Override
+        public State createFromParcel(Parcel in) {
+            return new State(in);
+        }
+
+        @Override
+        public State[] newArray(int size) {
+            return new State[size];
+        }
+    };
 }

@@ -18,6 +18,7 @@ package com.scrachx.foodfacts.checker.data.network;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 import com.scrachx.foodfacts.checker.data.network.model.Search;
 import com.scrachx.foodfacts.checker.data.network.model.SearchRequest;
+import com.scrachx.foodfacts.checker.data.network.model.State;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +46,14 @@ public class AppApiHelper implements ApiHelper {
                 .addQueryParameter(pathMap)
                 .build()
                 .getObjectObservable(Search.class);
+    }
+
+    @Override
+    public Observable<State> searchProductByBarcode(String barcode) {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_BARCODE)
+                .addPathParameter("barcode", barcode)
+                .build()
+                .getObjectObservable(State.class);
     }
 
 }

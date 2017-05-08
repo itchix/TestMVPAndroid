@@ -1,5 +1,6 @@
 package com.scrachx.foodfacts.checker.ui.scanner;
 
+import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.MvpView;
 
 /**
@@ -7,5 +8,7 @@ import com.scrachx.foodfacts.checker.ui.base.MvpView;
  */
 
 public interface ScannerMvpView extends MvpView {
+
+    void openPageProduct(State stateProduct);
 
 }

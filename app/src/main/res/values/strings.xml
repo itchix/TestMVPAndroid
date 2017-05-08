@@ -56,6 +56,25 @@
     <string name="invalid_email">Please provide a valid email.</string>
     <string name="empty_password">Please provide a non empty password.</string>
 
+    <!-- Nav Drawer Product Menu Items -->
+    <string-array name="nav_drawer_items_product">
+        <item>Summary</item>
+        <item>Ingredients</item>
+        <item>Nutrition</item>
+        <item>Nutrition Table</item>
+    </string-array>
+
+    <!-- For fr, Replace by https://world-fr.openfoodfacts.org/ -->
+    <string name="website">https://world.openfoodfacts.org/</string>
+    <!-- For fr, Replace by https://world-fr.openfoodfacts.org/contribuer -->
+    <string name="website_contribute">https://world.openfoodfacts.org/contribute</string>
+    <!-- For fr, Replace by https://world-fr.openfoodfacts.org/decouvrir -->
+    <string name="website_discover">https://world.openfoodfacts.org/discover</string>
+    <!-- For fr, Replace by https://world-fr.openfoodfacts.org/produit/ -->
+    <string name="website_product">https://world.openfoodfacts.org/product/</string>
+    <!-- For fr, Replace by https://world-fr.openfoodfacts.org/contributeur/ -->
+    <string name="website_contributor">https://world.openfoodfacts.org/contributor/</string>
+
     <!--about fragment-->
     <string name="project_info">This sample app implements MVP architecture using Dagger2, GreenDao, RxJava, FastAndroidNetworking and PlaceholderView</string>
     <string name="link_mvp_blog">1. https://blog.mindorks.com</string>
@@ -95,6 +114,9 @@
     <string name="txt_yes">Yes</string>
     <string name="txt_no">No</string>
     <string name="txt_ok">Ok</string>
+    <string name="txt_no_data">No data</string>
+    <string name="msg_share">Look at this product on Open Food Facts :</string>
+    <string name="txt_home">Open Food Facts is a open database of food products with ingredients, allergens, nutrition facts and all the tidbits of information we can find on product labels.</string>
 
     <!-- Nutrition info tab -->
     <string name="nutrition_carbohydrate">Carbohydrate</string>
@@ -186,4 +208,38 @@
     <string name="collagen_meat_protein_ratio">Collagen meat protein ratio</string>
     <string name="cocoa">Cocoa</string>
     <string name="chlorophyl">Chlorophyl</string>
+
+    <string name="take_picture_ingredients">Take a picture of the ingredients</string>
+    <string name="take_picture_front">Take a picture of the front</string>
+    <string name="take_picture_nutrition_table">Take a picture of the nutrition table</string>
+    <string name="take_more_pictures">Take more pictures</string>
+
+    <string name="txt_barcode">Barcode :</string>
+    <string name="txt_quantity">Quantity :</string>
+    <string name="txt_packaging">Packaging :</string>
+    <string name="txt_brands">Brands :</string>
+    <string name="txt_categories">Categories :</string>
+    <string name="txt_labels">Labels, certifications, awards :</string>
+    <string name="txt_manufacturing">Manufacturing or processing places :</string>
+    <string name="txt_ingredients_origins">Origin of ingredients :</string>
+    <string name="txt_city">City, state and country where purchased :</string>
+    <string name="txt_stores">Stores :</string>
+    <string name="txt_countries">Countries where sold :</string>
+    <string name="txt_ingredients">Ingredients list :</string>
+    <string name="txt_substances">Substances or products causing allergies or intolerances :</string>
+    <string name="txt_additives">Additives :</string>
+    <string name="txt_traces">Traces :</string>
+    <string name="txt_may_be_from_palm_oil_product">Ingredients that may be from palm oil :</string>
+    <string name="txt_palm_oil_product">Ingredients from palm oil :</string>
+    <string name="txt_serving_size">Serving size :</string>
+    <string name="txt_nutrient_level100g">Nutrient levels for 100g :</string>
+    <string name="txt_nutrition_levelLow">in low quantity</string>
+    <string name="txt_nutrition_level_moderate">in moderate quantity</string>
+    <string name="txt_nutrition_level_high">in high quantity</string>
+    <string name="txt_salt">Salt</string>
+    <string name="txt_fat">Fat</string>
+    <string name="txt_sugars">Sugars</string>
+    <string name="txt_saturated_fat">Satured fat</string>
+    <string name="txt_carbon_footprint">"Carbon footprint / CO2 emissions: "</string>
+
 </resources>

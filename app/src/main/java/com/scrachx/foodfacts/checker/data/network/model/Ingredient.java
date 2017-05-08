@@ -1,5 +1,8 @@
 package com.scrachx.foodfacts.checker.data.network.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,7 +20,7 @@ import java.util.Map;
         "rank",
         "percent"
 })
-public class Ingredient implements Serializable {
+public class Ingredient implements Serializable, Parcelable {
 
     private String text;
     private String id;
@@ -25,6 +28,10 @@ public class Ingredient implements Serializable {
     private String percent;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<>();
+
+    public Ingredient() {
+
+    }
 
     /**
      *
@@ -143,4 +150,38 @@ public class Ingredient implements Serializable {
                 ", additionalProperties=" + additionalProperties +
                 '}';
     }
+
+    protected Ingredient(Parcel in) {
+        text = in.readString();
+        id = in.readString();
+        rank = in.readLong();
+        percent = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(text);
+        dest.writeString(id);
+        dest.writeLong(rank);
+        dest.writeString(percent);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Ingredient> CREATOR = new Parcelable.Creator<Ingredient>() {
+        @Override
+        public Ingredient createFromParcel(Parcel in) {
+            return new Ingredient(in);
+        }
+
+        @Override
+        public Ingredient[] newArray(int size) {
+            return new Ingredient[size];
+        }
+    };
+
 }

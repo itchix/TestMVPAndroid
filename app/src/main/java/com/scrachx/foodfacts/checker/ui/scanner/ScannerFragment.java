@@ -1,15 +1,10 @@
 package com.scrachx.foodfacts.checker.ui.scanner;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,13 +16,20 @@ import android.view.ViewGroup;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.scrachx.foodfacts.checker.R;
+import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BaseFragment;
 import com.scrachx.foodfacts.checker.ui.custom.MessageDialogFragment;
+import com.scrachx.foodfacts.checker.ui.product.ProductActivity;
 import java.util.Arrays;
+import javax.inject.Inject;
+import butterknife.ButterKnife;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class ScannerFragment extends BaseFragment implements MessageDialogFragment.MessageDialogListener,
-        ZXingScannerView.ResultHandler, CameraSelectorDialogFragment.CameraSelectorDialogListener {
+        ZXingScannerView.ResultHandler, CameraSelectorDialogFragment.CameraSelectorDialogListener, ScannerMvpView {
+
+    @Inject
+    ScannerMvpPresenter<ScannerMvpView> mPresenter;
 
     private static final String FLASH_STATE = "FLASH_STATE";
     private static final String AUTO_FOCUS_STATE = "AUTO_FOCUS_STATE";
@@ -56,6 +58,12 @@ public class ScannerFragment extends BaseFragment implements MessageDialogFragme
             mCameraId = -1;
         }
         setupFormats();
+
+        getActivityComponent().inject(this);
+        setUnBinder(ButterKnife.bind(this, mScannerView));
+        mPresenter.onAttach(this);
+        setUp(mScannerView);
+
         return mScannerView;
     }
 
@@ -170,17 +178,7 @@ public class ScannerFragment extends BaseFragment implements MessageDialogFragme
             return;
         }
 
-        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-
-        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            //api.getProduct(rawResult.getText(), getActivity(), mScannerView, this);
-        } else {
-            /*Intent intent = new Intent(getActivity(), SaveProductOfflineActivity.class);
-            intent.putExtra("barcode", rawResult.getText());
-            getActivity().startActivity(intent);
-            getActivity().finish();*/
-        }
+        mPresenter.loadProduct(rawResult.getText());
     }
 
     @Override
@@ -209,6 +207,20 @@ public class ScannerFragment extends BaseFragment implements MessageDialogFragme
     public void onPause() {
         super.onPause();
         mScannerView.stopCamera();
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        mPresenter.onDetach();
+        super.onDestroyView();
+    }
+
+    @Override
+    public void openPageProduct(State stateProduct) {
+        Bundle args = new Bundle();
+        args.putParcelable("state", stateProduct);
+        startActivity(ProductActivity.getStartIntent(this.getActivity(), args));
     }
 
 }

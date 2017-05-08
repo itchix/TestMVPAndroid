@@ -9,14 +9,9 @@ import android.view.MenuItem;
 
 import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.ui.base.BaseActivity;
-import javax.inject.Inject;
-import butterknife.ButterKnife;
 
 
-public class ScannerActivity extends BaseActivity implements ScannerMvpView {
-
-    @Inject
-    ScannerMvpPresenter<ScannerMvpView> mPresenter;
+public class ScannerActivity extends BaseActivity {
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, ScannerActivity.class);
@@ -28,9 +23,6 @@ public class ScannerActivity extends BaseActivity implements ScannerMvpView {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_scanner);
-        getActivityComponent().inject(this);
-        setUnBinder(ButterKnife.bind(this));
-        mPresenter.onAttach(ScannerActivity.this);
         setUp();
     }
 
@@ -55,4 +47,5 @@ public class ScannerActivity extends BaseActivity implements ScannerMvpView {
             ab.setDisplayHomeAsUpEnabled(true);
         }
     }
+
 }

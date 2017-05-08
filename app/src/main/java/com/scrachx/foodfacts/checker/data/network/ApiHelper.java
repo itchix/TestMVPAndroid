@@ -15,13 +15,9 @@
 
 package com.scrachx.foodfacts.checker.data.network;
 
-import com.scrachx.foodfacts.checker.data.network.model.LoginRequest;
-import com.scrachx.foodfacts.checker.data.network.model.LoginResponse;
-import com.scrachx.foodfacts.checker.data.network.model.LogoutResponse;
 import com.scrachx.foodfacts.checker.data.network.model.Search;
 import com.scrachx.foodfacts.checker.data.network.model.SearchRequest;
-
-import java.util.List;
+import com.scrachx.foodfacts.checker.data.network.model.State;
 
 import io.reactivex.Observable;
 
@@ -32,5 +28,7 @@ import io.reactivex.Observable;
 public interface ApiHelper {
 
     Observable<Search> searchProductByName(SearchRequest request);
+
+    Observable<State> searchProductByBarcode(String barcode);
 
 }

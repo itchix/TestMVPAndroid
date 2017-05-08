@@ -33,6 +33,7 @@ import com.scrachx.foodfacts.checker.data.network.model.LoginResponse;
 import com.scrachx.foodfacts.checker.data.network.model.LogoutResponse;
 import com.scrachx.foodfacts.checker.data.network.model.Search;
 import com.scrachx.foodfacts.checker.data.network.model.SearchRequest;
+import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.data.prefs.PreferencesHelper;
 import com.scrachx.foodfacts.checker.di.ApplicationContext;
 import com.scrachx.foodfacts.checker.utils.AppConstants;
@@ -269,5 +270,10 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<Search> searchProductByName(SearchRequest request) {
         return mApiHelper.searchProductByName(request);
+    }
+
+    @Override
+    public Observable<State> searchProductByBarcode(String barcode) {
+        return mApiHelper.searchProductByBarcode(barcode);
     }
 }

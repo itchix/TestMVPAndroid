@@ -18,6 +18,7 @@ package com.scrachx.foodfacts.checker.di.module;
 import android.app.Activity;
 import android.content.Context;
 
+import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.di.ActivityContext;
 import com.scrachx.foodfacts.checker.di.PerActivity;
 import com.scrachx.foodfacts.checker.ui.about.AboutMvpPresenter;
@@ -29,6 +30,9 @@ import com.scrachx.foodfacts.checker.ui.login.LoginPresenter;
 import com.scrachx.foodfacts.checker.ui.main.MainMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.main.MainMvpView;
 import com.scrachx.foodfacts.checker.ui.main.MainPresenter;
+import com.scrachx.foodfacts.checker.ui.product.ProductMvpPresenter;
+import com.scrachx.foodfacts.checker.ui.product.ProductMvpView;
+import com.scrachx.foodfacts.checker.ui.product.ProductPresenter;
 import com.scrachx.foodfacts.checker.ui.scanner.ScannerMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.scanner.ScannerMvpView;
 import com.scrachx.foodfacts.checker.ui.scanner.ScannerPresenter;
@@ -101,8 +105,13 @@ public class ActivityModule {
     }
 
     @Provides
-    @PerActivity
     ScannerMvpPresenter<ScannerMvpView> provideScannerPresenter(ScannerPresenter<ScannerMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    ProductMvpPresenter<ProductMvpView> provideProductPresenter(ProductPresenter<ProductMvpView> presenter) {
         return presenter;
     }
 

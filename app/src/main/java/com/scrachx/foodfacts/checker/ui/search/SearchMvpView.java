@@ -1,6 +1,7 @@
 package com.scrachx.foodfacts.checker.ui.search;
 
 import com.scrachx.foodfacts.checker.data.network.model.Product;
+import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.MvpView;
 
 import java.util.List;
@@ -12,5 +13,7 @@ import java.util.List;
 public interface SearchMvpView extends MvpView {
 
     void refreshResults(List<Product> searchResult, int numberOfProducts);
+
+    void openPageProduct(State stateProduct);
 
 }

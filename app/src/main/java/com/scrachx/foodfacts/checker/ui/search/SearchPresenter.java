@@ -2,8 +2,10 @@ package com.scrachx.foodfacts.checker.ui.search;
 
 import com.androidnetworking.error.ANError;
 import com.scrachx.foodfacts.checker.data.DataManager;
+import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.data.network.model.Search;
 import com.scrachx.foodfacts.checker.data.network.model.SearchRequest;
+import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BasePresenter;
 
 import java.util.List;
@@ -19,8 +21,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by scots on 07/05/2017.
  */
 
-public class SearchPresenter <V extends SearchMvpView> extends BasePresenter<V>
-        implements SearchMvpPresenter<V> {
+public class SearchPresenter <V extends SearchMvpView> extends BasePresenter<V> implements SearchMvpPresenter<V> {
 
     @Inject
     public SearchPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
@@ -65,5 +66,44 @@ public class SearchPresenter <V extends SearchMvpView> extends BasePresenter<V>
                             }
                         }
                     }));
+    }
+
+    @Override
+    public void loadProduct(String barcode) {
+        getCompositeDisposable().add(getDataManager()
+                .searchProductByBarcode(barcode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<State>() {
+                    @Override
+                    public void accept(State stateProduct) throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
+                        if (stateProduct != null) {
+                            getMvpView().hideLoading();
+                            getMvpView().openPageProduct(stateProduct);
+                        }
+
+                        getMvpView().hideLoading();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
+                        getMvpView().hideLoading();
+
+                        // handle the login error here
+                        if (throwable instanceof ANError) {
+                            ANError anError = (ANError) throwable;
+                            handleApiError(anError);
+                        }
+                    }
+                }));
     }
 }

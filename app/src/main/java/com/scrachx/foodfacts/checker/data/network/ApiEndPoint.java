@@ -24,6 +24,7 @@ import com.scrachx.foodfacts.checker.BuildConfig;
 public final class ApiEndPoint {
 
     public static final String ENDPOINT_SEARCH = BuildConfig.BASE_URL + "/cgi/search.pl?search_simple=1&json=1&action=process";
+    public static final String ENDPOINT_BARCODE = BuildConfig.BASE_URL + "/api/v0/produit/{barcode}.json";
     public static final String ENDPOINT_LOGIN_LOGOUT = BuildConfig.BASE_URL + "/cgi/session.pl";
 
     private ApiEndPoint() {

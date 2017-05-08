@@ -67,6 +67,7 @@ dependencies {
     compile "com.android.support:support-vector-drawable:$rootProject.supportLibraryVersion"
     compile "com.android.support:animated-vector-drawable:$rootProject.supportLibraryVersion"
     compile "com.android.support:preference-v14:$rootProject.supportLibraryVersion"
+    compile "com.android.support:customtabs:$rootProject.supportLibraryVersion"
 
     // string
     compile "org.apache.commons:commons-lang3:$rootProject.commonLang3"
