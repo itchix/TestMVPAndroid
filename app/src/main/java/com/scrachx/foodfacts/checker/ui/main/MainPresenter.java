@@ -81,6 +81,11 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     }
 
     @Override
+    public void onDrawerOptionHistoryClick() {
+        getMvpView().showHistoryFragment();
+    }
+
+    @Override
     public void onDrawerOptionSearchClick() {
         getMvpView().showSearchFragment();
     }

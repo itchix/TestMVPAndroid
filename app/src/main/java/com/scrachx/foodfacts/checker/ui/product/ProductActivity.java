@@ -189,8 +189,6 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
                                 startActivity(intent);
                             })
                             .show();
-                } else {
-                    mPresenter.onScannerClick();
                 }
             }
         }

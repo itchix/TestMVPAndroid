@@ -9,7 +9,7 @@ import com.scrachx.foodfacts.checker.ui.base.MvpPresenter;
 @PerActivity
 public interface HistoryMvpPresenter<V extends HistoryMvpView> extends MvpPresenter<V> {
 
-    void onLoadProducts(int limit);
+    void onLoadProducts(int offset);
 
     void loadProduct(String barcode);
 

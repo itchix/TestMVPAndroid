@@ -52,6 +52,7 @@ import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.about.AboutFragment;
 import com.scrachx.foodfacts.checker.ui.base.BaseActivity;
 import com.scrachx.foodfacts.checker.ui.custom.RoundedImageView;
+import com.scrachx.foodfacts.checker.ui.history.HistoryFragment;
 import com.scrachx.foodfacts.checker.ui.login.LoginActivity;
 import com.scrachx.foodfacts.checker.ui.product.ProductActivity;
 import com.scrachx.foodfacts.checker.ui.scanner.ScannerActivity;
@@ -157,12 +158,15 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragmentAbout = fragmentManager.findFragmentByTag(AboutFragment.TAG);
         Fragment fragmentSearch = fragmentManager.findFragmentByTag(SearchFragment.TAG);
+        Fragment fragmentHistory = fragmentManager.findFragmentByTag(HistoryFragment.TAG);
         if (fragmentAbout == null && fragmentSearch == null) {
             super.onBackPressed();
         } else if(fragmentAbout != null){
             onFragmentDetached(AboutFragment.TAG);
         } else if(fragmentSearch != null){
             onFragmentDetached(SearchFragment.TAG);
+        } else if(fragmentHistory != null){
+            onFragmentDetached(HistoryFragment.TAG);
         }
     }
 
@@ -261,6 +265,16 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     @Override
+    public void showHistoryFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .add(R.id.cl_root_view, HistoryFragment.newInstance(), HistoryFragment.TAG)
+                .commit();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
@@ -345,6 +359,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                         switch (item.getItemId()) {
                             case R.id.nav_item_search:
                                 mPresenter.onDrawerOptionSearchClick();
+                                return true;
+                            case R.id.nav_item_history:
+                                mPresenter.onDrawerOptionHistoryClick();
                                 return true;
                             case R.id.nav_item_scan:
                                 mPresenter.onDrawerOptionScanClick();

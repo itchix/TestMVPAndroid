@@ -18,6 +18,7 @@ package com.scrachx.foodfacts.checker.data.db;
 import com.scrachx.foodfacts.checker.data.db.model.DaoMaster;
 import com.scrachx.foodfacts.checker.data.db.model.DaoSession;
 import com.scrachx.foodfacts.checker.data.db.model.History;
+import com.scrachx.foodfacts.checker.data.db.model.HistoryDao;
 import com.scrachx.foodfacts.checker.data.db.model.Option;
 import com.scrachx.foodfacts.checker.data.db.model.Question;
 import com.scrachx.foodfacts.checker.data.db.model.User;
@@ -61,7 +62,7 @@ public class AppDbHelper implements DbHelper {
         return Observable.fromCallable(new Callable<HistoryItem>() {
             @Override
             public HistoryItem call() throws Exception {
-                return new HistoryItem(mDaoSession.getHistoryDao().queryBuilder().limit(20).offset(page).list(), mDaoSession.getHistoryDao().queryBuilder().count());
+                return new HistoryItem(mDaoSession.getHistoryDao().queryBuilder().limit(20).offset(page).orderDesc(HistoryDao.Properties.LastSeen).list(), mDaoSession.getHistoryDao().queryBuilder().count());
             }
         });
     }

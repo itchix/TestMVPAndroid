@@ -99,4 +99,5 @@
         android:padding="10dp"
         android:text="@string/link_mindorks_repo"
         android:textColor="@color/white" />
+
 </LinearLayout>

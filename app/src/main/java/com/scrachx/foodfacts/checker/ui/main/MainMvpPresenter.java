@@ -28,6 +28,8 @@ public interface MainMvpPresenter<V extends MainMvpView> extends MvpPresenter<V>
 
     void loadProduct(String barcode);
 
+    void onDrawerOptionHistoryClick();
+
     void onDrawerOptionSearchClick();
 
     void onDrawerOptionAboutClick();

@@ -11,11 +11,9 @@ import android.view.ViewGroup;
 
 import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.db.model.History;
-import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BaseFragment;
 import com.scrachx.foodfacts.checker.ui.custom.EndlessRecyclerViewScrollListener;
-import com.scrachx.foodfacts.checker.ui.search.ProductsRecyclerViewAdapter;
 import com.scrachx.foodfacts.checker.ui.custom.RecyclerItemClickListener;
 import com.scrachx.foodfacts.checker.ui.product.ProductActivity;
 
@@ -25,6 +23,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by scots on 08/05/2017.
@@ -37,7 +36,7 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
     @Inject
     HistoryMvpPresenter<HistoryMvpView> mPresenter;
 
-    private RecyclerView mProductsRecyclerView;
+    private RecyclerView mProductsHistoryRecyclerView;
     private EndlessRecyclerViewScrollListener mScrollListener;
     private List<History> mProductsHistory;
     private int mCountProducts = 0;
@@ -52,7 +51,7 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_history, container, false);
         getActivityComponent().inject(this);
         setUnBinder(ButterKnife.bind(this, view));
         mPresenter.onAttach(this);
@@ -64,21 +63,21 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
     @Override
     protected void setUp(View view) {
 
-        mProductsRecyclerView = (RecyclerView) view.findViewById(R.id.products_recycler_view);
+        mProductsHistoryRecyclerView = (RecyclerView) view.findViewById(R.id.products_recycler_view);
 
         mProductsHistory = new ArrayList<>();
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        mProductsRecyclerView.setHasFixedSize(true);
+        mProductsHistoryRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        mProductsRecyclerView.setLayoutManager(mLayoutManager);
+        mProductsHistoryRecyclerView.setLayoutManager(mLayoutManager);
 
         // use VERTICAL divider
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mProductsRecyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        mProductsRecyclerView.addItemDecoration(dividerItemDecoration);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mProductsHistoryRecyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        mProductsHistoryRecyclerView.addItemDecoration(dividerItemDecoration);
 
         // Retain an instance so that you can call `resetState()` for fresh searches
         mScrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
@@ -90,22 +89,27 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
             }
         };
         // Adds the scroll listener to RecyclerView
-        mProductsRecyclerView.addOnScrollListener(mScrollListener);
+        mProductsHistoryRecyclerView.addOnScrollListener(mScrollListener);
 
         // Click listener on a product
-        mProductsRecyclerView.addOnItemTouchListener(
+        mProductsHistoryRecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(view.getContext(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Product p = ((ProductsRecyclerViewAdapter) mProductsRecyclerView.getAdapter()).getProduct(position);
-                        if(p != null) {
-                            mPresenter.loadProduct(p.getCode());
+                        History hp = ((HistoryRecyclerViewAdapter) mProductsHistoryRecyclerView.getAdapter()).getHistory(position);
+                        if(hp != null) {
+                            mPresenter.loadProduct(hp.getBarcode());
                         }
                     }
                 })
         );
 
-        mPresenter.onLoadProducts(1);
+        mPresenter.onLoadProducts(0);
+    }
+
+    @OnClick(R.id.nav_back_btn)
+    void onNavBackClick() {
+        getBaseActivity().onFragmentDetached(HistoryFragment.class.getSimpleName());
     }
 
     @Override
@@ -117,13 +121,13 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
     @Override
     public void loadHistory(List<History> productsHistory, long numberOfProductsHistory) {
         mCountProducts = (int)numberOfProductsHistory;
-        if(mProductsRecyclerView.getAdapter() == null) {
+        if(mProductsHistoryRecyclerView.getAdapter() == null) {
             mProductsHistory.addAll(productsHistory);
             if(mProductsHistory.size() < mCountProducts) {
                 mProductsHistory.add(null);
             }
             HistoryRecyclerViewAdapter adapter = new HistoryRecyclerViewAdapter(mProductsHistory);
-            mProductsRecyclerView.setAdapter(adapter);
+            mProductsHistoryRecyclerView.setAdapter(adapter);
         } else {
             final int posStart = mProductsHistory.size();
             if (mProductsHistory.size() - 1 < mCountProducts + 1) {
@@ -132,7 +136,7 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
                 if(mProductsHistory.size() < mCountProducts) {
                     mProductsHistory.add(null);
                 }
-                mProductsRecyclerView.getAdapter().notifyItemRangeChanged(posStart - 1, mProductsHistory.size() - 1);
+                mProductsHistoryRecyclerView.getAdapter().notifyItemRangeChanged(posStart - 1, mProductsHistory.size() - 1);
             }
         }
     }

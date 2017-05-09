@@ -37,6 +37,8 @@ public interface MainMvpView extends MvpView {
 
     void showSearchFragment();
 
+    void showHistoryFragment();
+
     void refreshQuestionnaire(List<Question> questionList);
 
     void reloadQuestionnaire(List<Question> questionList);
