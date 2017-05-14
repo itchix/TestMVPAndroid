@@ -1,5 +1,6 @@
 package com.scrachx.foodfacts.checker.ui.search;
 
+import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.di.PerActivity;
 import com.scrachx.foodfacts.checker.ui.base.MvpPresenter;
 
@@ -13,5 +14,7 @@ public interface SearchMvpPresenter <V extends SearchMvpView> extends MvpPresent
     void onLoadProducts(String searchTerms, int page);
 
     void loadProduct(String barcode);
+
+    void saveProduct(Product product);
 
 }

@@ -1,4 +1,6 @@
-package com.scrachx.foodfacts.checker.ui.product;
+package com.scrachx.foodfacts.checker.ui.product.nutritioninfo;
+
+import com.scrachx.foodfacts.checker.ui.product.nutritioninfo.NutrimentItem;
 
 import static com.scrachx.foodfacts.checker.utils.CommonUtils.bold;
 

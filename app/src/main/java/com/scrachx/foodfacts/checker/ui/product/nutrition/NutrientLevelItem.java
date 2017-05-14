@@ -1,4 +1,4 @@
-package com.scrachx.foodfacts.checker.ui.product;
+package com.scrachx.foodfacts.checker.ui.product.nutrition;
 
 /**
  * Created by scots on 08/05/2017.

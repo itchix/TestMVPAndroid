@@ -1,4 +1,4 @@
-package com.scrachx.foodfacts.checker.ui.product;
+package com.scrachx.foodfacts.checker.ui.product.nutritioninfo;
 
 
 import android.support.v7.widget.RecyclerView;

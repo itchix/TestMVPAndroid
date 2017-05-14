@@ -1,4 +1,4 @@
-package com.scrachx.foodfacts.checker.ui.product;
+package com.scrachx.foodfacts.checker.ui.product.summary;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,13 @@ import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BaseFragment;
+import com.scrachx.foodfacts.checker.ui.fullscreen.FullScreenImageActivity;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.scrachx.foodfacts.checker.utils.CommonUtils.bold;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -26,7 +30,12 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * Created by scots on 08/05/2017.
  */
 
-public class SummaryProductFragment extends BaseFragment {
+public class SummaryProductFragment extends BaseFragment implements SummaryProductMvpView {
+
+    public static final String TAG = "NutritionInfoProductFragment";
+
+    @Inject
+    SummaryProductMvpPresenter<SummaryProductMvpView> mPresenter;
 
     @BindView(R.id.text_name_product)
     TextView nameProduct;
@@ -79,6 +88,9 @@ public class SummaryProductFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_summary_product, container, false);
         setUnBinder(ButterKnife.bind(this, view));
+        getActivityComponent().inject(this);
+        setUnBinder(ButterKnife.bind(this, view));
+        mPresenter.onAttach(this);
         setUp(view);
 
         return view;
@@ -183,6 +195,12 @@ public class SummaryProductFragment extends BaseFragment {
         } else {
             countryProduct.setVisibility(View.GONE);
         }
+    }
+
+    @OnClick(R.id.image_view_front)
+    public void openFullScreen(View v) {
+        Intent intent = FullScreenImageActivity.getStartIntent(v.getContext(), mUrlImage, mBarcode);
+        startActivity(intent);
     }
 
 }

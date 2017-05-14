@@ -2,12 +2,14 @@ package com.scrachx.foodfacts.checker.ui.search;
 
 import com.androidnetworking.error.ANError;
 import com.scrachx.foodfacts.checker.data.DataManager;
+import com.scrachx.foodfacts.checker.data.db.model.History;
 import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.data.network.model.Search;
 import com.scrachx.foodfacts.checker.data.network.model.SearchRequest;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BasePresenter;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -102,6 +104,23 @@ public class SearchPresenter <V extends SearchMvpView> extends BasePresenter<V> 
                         if (throwable instanceof ANError) {
                             ANError anError = (ANError) throwable;
                             handleApiError(anError);
+                        }
+                    }
+                }));
+    }
+
+    @Override
+    public void saveProduct(Product product) {
+        History history = new History(product.getProductName(), product.getBrands(), product.getImageFrontUrl(), new Date(), product.getCode(), product.getQuantity());
+        getCompositeDisposable().add(getDataManager()
+                .insertHistory(history)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long id) throws Exception {
+                        if (!isViewAttached()) {
+                            return;
                         }
                     }
                 }));

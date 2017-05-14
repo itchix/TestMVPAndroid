@@ -1,4 +1,4 @@
-package com.scrachx.foodfacts.checker.ui.product;
+package com.scrachx.foodfacts.checker.ui.product.nutrition;
 
 import android.app.Activity;
 import android.content.Context;

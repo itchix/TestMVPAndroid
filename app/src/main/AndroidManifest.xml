@@ -75,6 +75,10 @@
             android:launchMode="singleTop"
             android:parentActivityName=".ui.main.MainActivity"/>
 
+        <activity
+            android:name=".ui.fullscreen.FullScreenImageActivity"
+            android:launchMode="singleTop" />
+
     </application>
 
 </manifest>

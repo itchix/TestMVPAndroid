@@ -100,6 +100,9 @@ dependencies {
     // glide
     compile "com.github.bumptech.glide:glide:$rootProject.glide"
 
+    // photoview
+    compile "com.github.chrisbanes:PhotoView:$rootProject.photoView"
+
     // debug database
     debugCompile "com.amitshekhar.android:debug-db:$rootProject.debugDBVersion"
 

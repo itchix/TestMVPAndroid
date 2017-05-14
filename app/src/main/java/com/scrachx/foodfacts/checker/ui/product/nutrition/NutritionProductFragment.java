@@ -1,4 +1,4 @@
-package com.scrachx.foodfacts.checker.ui.product;
+package com.scrachx.foodfacts.checker.ui.product.nutrition;
 
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +30,8 @@ import com.scrachx.foodfacts.checker.utils.ImageUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -40,7 +42,12 @@ import static com.scrachx.foodfacts.checker.utils.CommonUtils.getRoundNumber;
  * Created by scots on 08/05/2017.
  */
 
-public class NutritionProductFragment extends BaseFragment implements CustomTabActivityHelper.ConnectionCallback {
+public class NutritionProductFragment extends BaseFragment implements CustomTabActivityHelper.ConnectionCallback, NutritionProductMvpView {
+
+    public static final String TAG = "NutritionProductFragment";
+
+    @Inject
+    NutritionProductMvpPresenter<NutritionProductMvpView> mPresenter;
 
     @BindView(R.id.image_grade)
     ImageView img;
@@ -62,6 +69,9 @@ public class NutritionProductFragment extends BaseFragment implements CustomTabA
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nutrition_product, container, false);
         setUnBinder(ButterKnife.bind(this, view));
+        getActivityComponent().inject(this);
+        setUnBinder(ButterKnife.bind(this, view));
+        mPresenter.onAttach(this);
         setUp(view);
 
         return view;

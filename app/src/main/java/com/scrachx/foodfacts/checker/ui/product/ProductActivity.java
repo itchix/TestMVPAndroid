@@ -21,14 +21,14 @@ import android.view.MenuItem;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.scrachx.foodfacts.checker.R;
-import com.scrachx.foodfacts.checker.data.db.model.History;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BaseActivity;
+import com.scrachx.foodfacts.checker.ui.product.ingredients.IngredientsProductFragment;
+import com.scrachx.foodfacts.checker.ui.product.nutrition.NutritionProductFragment;
+import com.scrachx.foodfacts.checker.ui.product.nutritioninfo.NutritionInfoProductFragment;
+import com.scrachx.foodfacts.checker.ui.product.summary.SummaryProductFragment;
 import com.scrachx.foodfacts.checker.ui.scanner.ScannerActivity;
 import com.scrachx.foodfacts.checker.utils.PermissionUtils;
-
-import java.util.Date;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -135,10 +135,7 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
                 ActivityCompat.requestPermissions(this, new String[]{READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE}, PermissionUtils.MY_PERMISSIONS_REQUEST_STORAGE);
             }
         }
-
-        Intent intent = getIntent();
-        mState = (State) intent.getBundleExtra("bundle").getParcelable("state");
-        mPresenter.saveProduct(mState.getProduct());
+        mState = (State) getIntent().getBundleExtra("bundle").getParcelable("state");
     }
 
 

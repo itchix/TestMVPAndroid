@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.scrachx.foodfacts.checker.R;
+import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BaseFragment;
 import com.scrachx.foodfacts.checker.ui.custom.MessageDialogFragment;
@@ -218,6 +219,8 @@ public class ScannerFragment extends BaseFragment implements MessageDialogFragme
 
     @Override
     public void openPageProduct(State stateProduct) {
+        Product productCloned = stateProduct.getProduct();
+        mPresenter.saveProduct(productCloned);
         Bundle args = new Bundle();
         args.putParcelable("state", stateProduct);
         startActivity(ProductActivity.getStartIntent(this.getActivity(), args));

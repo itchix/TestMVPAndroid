@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <ImageButton
-            android:id="@+id/imageViewIngredients"
+            android:id="@+id/image_view_ingredients"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"

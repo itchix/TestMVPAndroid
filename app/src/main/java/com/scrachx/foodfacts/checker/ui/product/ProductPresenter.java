@@ -34,20 +34,4 @@ public class ProductPresenter <V extends ProductMvpView> extends BasePresenter<V
         getMvpView().openScannerActivity();
     }
 
-    @Override
-    public void saveProduct(Product product) {
-        History history = new History(product.getProductName(), product.getBrands(), product.getImageFrontUrl(), new Date(), product.getCode(), product.getQuantity());
-        getCompositeDisposable().add(getDataManager()
-                .insertHistory(history)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long id) throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-                    }
-                }));
-    }
 }

@@ -1,4 +1,4 @@
-package com.scrachx.foodfacts.checker.ui.product;
+package com.scrachx.foodfacts.checker.ui.product.nutritioninfo;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.scrachx.foodfacts.checker.data.network.model.Nutriments;
 import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BaseFragment;
+import com.scrachx.foodfacts.checker.ui.fullscreen.FullScreenImageActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,8 +26,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 import static android.text.TextUtils.isEmpty;
@@ -41,7 +45,12 @@ import static com.scrachx.foodfacts.checker.data.network.model.Nutriments.PROT_M
 import static com.scrachx.foodfacts.checker.data.network.model.Nutriments.VITAMINS_MAP;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-public class NutritionInfoProductFragment extends BaseFragment {
+public class NutritionInfoProductFragment extends BaseFragment implements NutritionInfoProductMvpView {
+
+    public static final String TAG = "NutritionInfoProductFragment";
+
+    @Inject
+    NutritionInfoProductMvpPresenter<NutritionInfoProductMvpView> mPresenter;
 
     @BindView(R.id.text_per_portion)
     TextView mTextPerPortion;
@@ -63,6 +72,9 @@ public class NutritionInfoProductFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nutrition_info_product, container, false);
         setUnBinder(ButterKnife.bind(this, view));
+        getActivityComponent().inject(this);
+        setUnBinder(ButterKnife.bind(this, view));
+        mPresenter.onAttach(this);
         setUp(view);
 
         return view;
@@ -208,6 +220,12 @@ public class NutritionInfoProductFragment extends BaseFragment {
 
     private int convertKjToKcal(int kj) {
         return kj != 0 ? Double.valueOf(((double) kj) / 4.1868d).intValue() : -1;
+    }
+
+    @OnClick(R.id.image_view_nutrition)
+    public void openFullScreen(View v) {
+        Intent intent = FullScreenImageActivity.getStartIntent(v.getContext(), mUrlImage, mBarcode);
+        startActivity(intent);
     }
 
 }

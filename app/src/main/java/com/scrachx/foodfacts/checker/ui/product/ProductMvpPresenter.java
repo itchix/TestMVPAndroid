@@ -1,6 +1,5 @@
 package com.scrachx.foodfacts.checker.ui.product;
 
-import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.di.PerActivity;
 import com.scrachx.foodfacts.checker.ui.base.MvpPresenter;
 
@@ -11,7 +10,5 @@ import com.scrachx.foodfacts.checker.ui.base.MvpPresenter;
 public interface ProductMvpPresenter <V extends ProductMvpView> extends MvpPresenter<V> {
 
     void onScannerClick();
-
-    void saveProduct(Product product);
 
 }

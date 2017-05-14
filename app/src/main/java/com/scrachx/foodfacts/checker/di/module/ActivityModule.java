@@ -24,6 +24,9 @@ import com.scrachx.foodfacts.checker.di.PerActivity;
 import com.scrachx.foodfacts.checker.ui.about.AboutMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.about.AboutMvpView;
 import com.scrachx.foodfacts.checker.ui.about.AboutPresenter;
+import com.scrachx.foodfacts.checker.ui.fullscreen.FullScreenImageMvpPresenter;
+import com.scrachx.foodfacts.checker.ui.fullscreen.FullScreenImageMvpView;
+import com.scrachx.foodfacts.checker.ui.fullscreen.FullScreenImagePresenter;
 import com.scrachx.foodfacts.checker.ui.history.HistoryMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.history.HistoryMvpView;
 import com.scrachx.foodfacts.checker.ui.history.HistoryPresenter;
@@ -36,6 +39,18 @@ import com.scrachx.foodfacts.checker.ui.main.MainPresenter;
 import com.scrachx.foodfacts.checker.ui.product.ProductMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.product.ProductMvpView;
 import com.scrachx.foodfacts.checker.ui.product.ProductPresenter;
+import com.scrachx.foodfacts.checker.ui.product.ingredients.IngredientsProductMvpPresenter;
+import com.scrachx.foodfacts.checker.ui.product.ingredients.IngredientsProductMvpView;
+import com.scrachx.foodfacts.checker.ui.product.ingredients.IngredientsProductPresenter;
+import com.scrachx.foodfacts.checker.ui.product.nutrition.NutritionProductMvpPresenter;
+import com.scrachx.foodfacts.checker.ui.product.nutrition.NutritionProductMvpView;
+import com.scrachx.foodfacts.checker.ui.product.nutrition.NutritionProductPresenter;
+import com.scrachx.foodfacts.checker.ui.product.nutritioninfo.NutritionInfoProductMvpPresenter;
+import com.scrachx.foodfacts.checker.ui.product.nutritioninfo.NutritionInfoProductMvpView;
+import com.scrachx.foodfacts.checker.ui.product.nutritioninfo.NutritionInfoProductPresenter;
+import com.scrachx.foodfacts.checker.ui.product.summary.SummaryProductMvpPresenter;
+import com.scrachx.foodfacts.checker.ui.product.summary.SummaryProductMvpView;
+import com.scrachx.foodfacts.checker.ui.product.summary.SummaryProductPresenter;
 import com.scrachx.foodfacts.checker.ui.scanner.ScannerMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.scanner.ScannerMvpView;
 import com.scrachx.foodfacts.checker.ui.scanner.ScannerPresenter;
@@ -119,6 +134,12 @@ public class ActivityModule {
     }
 
     @Provides
+    @PerActivity
+    FullScreenImageMvpPresenter<FullScreenImageMvpView> provideFullScreenImagePresenter(FullScreenImagePresenter<FullScreenImageMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
     SearchMvpPresenter<SearchMvpView> provideSearchPresenter(SearchPresenter<SearchMvpView> presenter) {
         return presenter;
     }
@@ -128,4 +149,23 @@ public class ActivityModule {
         return presenter;
     }
 
+    @Provides
+    NutritionInfoProductMvpPresenter<NutritionInfoProductMvpView> provideNutritionInfoProductPresenter(NutritionInfoProductPresenter<NutritionInfoProductMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    NutritionProductMvpPresenter<NutritionProductMvpView> provideNutritionProductPresenter(NutritionProductPresenter<NutritionProductMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    SummaryProductMvpPresenter<SummaryProductMvpView> provideSummaryProductPresenter(SummaryProductPresenter<SummaryProductMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    IngredientsProductMvpPresenter<IngredientsProductMvpView> provideIngredientsProductPresenter(IngredientsProductPresenter<IngredientsProductMvpView> presenter) {
+        return presenter;
+    }
 }

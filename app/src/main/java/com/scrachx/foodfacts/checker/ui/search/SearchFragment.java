@@ -17,6 +17,8 @@ import com.scrachx.foodfacts.checker.ui.custom.EndlessRecyclerViewScrollListener
 import com.scrachx.foodfacts.checker.ui.custom.RecyclerItemClickListener;
 import com.scrachx.foodfacts.checker.ui.product.ProductActivity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,8 +112,9 @@ public class SearchFragment  extends BaseFragment implements SearchMvpView {
                     }
                 })
         );
-
-        mPresenter.onLoadProducts(getArguments().getString("query"), 1);
+        if(StringUtils.isNotEmpty(getArguments().getString("query"))) {
+            mPresenter.onLoadProducts(getArguments().getString("query"), 1);
+        }
     }
 
     @Override
@@ -145,6 +148,8 @@ public class SearchFragment  extends BaseFragment implements SearchMvpView {
 
     @Override
     public void openPageProduct(State stateProduct) {
+        Product productCloned = stateProduct.getProduct();
+        mPresenter.saveProduct(productCloned);
         Bundle args = new Bundle();
         args.putParcelable("state", stateProduct);
         startActivity(ProductActivity.getStartIntent(this.getActivity(), args));

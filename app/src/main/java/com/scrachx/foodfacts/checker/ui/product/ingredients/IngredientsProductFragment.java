@@ -1,4 +1,4 @@
-package com.scrachx.foodfacts.checker.ui.product;
+package com.scrachx.foodfacts.checker.ui.product.ingredients;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,14 +16,23 @@ import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BaseFragment;
+import com.scrachx.foodfacts.checker.ui.fullscreen.FullScreenImageActivity;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.scrachx.foodfacts.checker.utils.CommonUtils.bold;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-public class IngredientsProductFragment extends BaseFragment {
+public class IngredientsProductFragment extends BaseFragment implements IngredientsProductMvpView {
+
+    public static final String TAG = "IngredientsProductFragment";
+
+    @Inject
+    IngredientsProductMvpPresenter<IngredientsProductMvpView> mPresenter;
 
     @BindView(R.id.text_ingredient_product)
     TextView ingredientsProduct;
@@ -43,7 +52,7 @@ public class IngredientsProductFragment extends BaseFragment {
     @BindView(R.id.text_may_be_from_palm_oil_product)
     TextView mayBeFromPalmOilProduct;
 
-    @BindView(R.id.imageViewIngredients)
+    @BindView(R.id.image_view_ingredients)
     ImageView mImageIngredients;
 
     @BindView(R.id.add_photo_label)
@@ -58,8 +67,10 @@ public class IngredientsProductFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ingredients_product, container, false);
         setUnBinder(ButterKnife.bind(this, view));
+        getActivityComponent().inject(this);
+        setUnBinder(ButterKnife.bind(this, view));
+        mPresenter.onAttach(this);
         setUp(view);
-
         return view;
     }
 
@@ -139,6 +150,12 @@ public class IngredientsProductFragment extends BaseFragment {
                 mayBeFromPalmOilProduct.setVisibility(View.GONE);
             }
         }
+    }
+
+    @OnClick(R.id.image_view_ingredients)
+    public void openFullScreen(View v) {
+        Intent intent = FullScreenImageActivity.getStartIntent(v.getContext(), mUrlImage, mBarcode);
+        startActivity(intent);
     }
 
 }
