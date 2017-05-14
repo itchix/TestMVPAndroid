@@ -147,6 +147,7 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
         adapterResult.addFragment(new NutritionProductFragment(), menuTitles[2]);
         adapterResult.addFragment(new NutritionInfoProductFragment(), menuTitles[3]);
         viewPager.setAdapter(adapterResult);
+        viewPager.setOffscreenPageLimit(4);
     }
 
     @OnClick(R.id.button_scan)
