@@ -28,12 +28,12 @@
         <item
             android:id="@+id/nav_item_history"
             android:checked="true"
-            android:icon="@drawable/ic_info_24px"
+            android:icon="@drawable/ic_history_black_24dp"
             android:title="@string/history" />
         <item
             android:id="@+id/nav_item_allergens"
             android:checked="true"
-            android:icon="@drawable/ic_info_24px"
+            android:icon="@drawable/ic_warning_black_24dp"
             android:title="@string/allergens" />
         <item
             android:id="@+id/nav_item_contribution"

@@ -111,7 +111,7 @@ public class SearchPresenter <V extends SearchMvpView> extends BasePresenter<V> 
 
     @Override
     public void saveProduct(Product product) {
-        History history = new History(product.getProductName(), product.getBrands(), product.getImageFrontUrl(), new Date(), product.getCode(), product.getQuantity());
+        History history = new History(product.getProductName(), product.getBrands(), product.getImageFrontUrl(), new Date(), product.getCode(), product.getQuantity(), product.getNutritionGradeFr());
         getCompositeDisposable().add(getDataManager()
                 .insertHistory(history)
                 .subscribeOn(Schedulers.io())

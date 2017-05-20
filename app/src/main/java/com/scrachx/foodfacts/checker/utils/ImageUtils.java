@@ -116,6 +116,37 @@ public class ImageUtils {
         return drawable;
     }
 
+    public static int getImageGradeColor(String grade) {
+        int drawable;
+
+        if (grade == null) {
+            return R.drawable.ic_circle_grey_24dp;
+        }
+
+        switch (grade.toLowerCase()) {
+            case "a":
+                drawable = R.drawable.ic_circle_dark_green_24dp;
+                break;
+            case "b":
+                drawable = R.drawable.ic_circle_green_24dp;
+                break;
+            case "c":
+                drawable = R.drawable.ic_circle_yellow_24dp;
+                break;
+            case "d":
+                drawable = R.drawable.ic_circle_orange_24dp;
+                break;
+            case "e":
+                drawable = R.drawable.ic_circle_red_24dp;
+                break;
+            default:
+                drawable = R.drawable.ic_circle_grey_24dp;
+                break;
+        }
+
+        return drawable;
+    }
+
     public static Bitmap getBitmapFromDrawable(Context context, @DrawableRes int drawableId) {
         Drawable drawable = VectorDrawableCompat.create(context.getResources(), drawableId, null);
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);

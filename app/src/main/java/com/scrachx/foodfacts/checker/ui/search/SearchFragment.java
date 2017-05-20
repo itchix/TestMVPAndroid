@@ -27,7 +27,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 
 
-public class SearchFragment  extends BaseFragment implements SearchMvpView {
+public class SearchFragment extends BaseFragment implements SearchMvpView {
 
     public static final String TAG = "SearchFragment";
 
@@ -54,16 +54,11 @@ public class SearchFragment  extends BaseFragment implements SearchMvpView {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-
         getActivityComponent().inject(this);
-
         setUnBinder(ButterKnife.bind(this, view));
-
         mPresenter.onAttach(this);
-
         setUp(view);
 
         return view;

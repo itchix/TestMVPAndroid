@@ -21,39 +21,47 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/img_product"
-        android:layout_toEndOf="@id/img_product"
+        android:layout_alignBottom="@+id/img_product"
         android:layout_alignTop="@+id/img_product"
-        android:layout_marginRight="@dimen/spacing_normal"
-        android:layout_marginEnd="@dimen/spacing_normal"
-        android:rowCount="2"
+        android:layout_marginEnd="@dimen/spacing_large"
+        android:layout_marginRight="@dimen/spacing_large"
+        android:layout_toRightOf="@id/img_product"
+        android:layout_toLeftOf="@id/image_grade"
         android:columnCount="1"
-        android:layout_alignBottom="@+id/img_product">
+        android:rowCount="2"
+        android:id="@+id/gridLayout2">
 
         <TextView
             android:id="@+id/name_product"
             android:layout_width="fill_parent"
-            android:textSize="@dimen/font_large"
-            android:gravity="center_vertical"
             android:layout_row="0"
-            tools:text="Product name with a long long long description"
-            android:textAlignment="gravity"
             android:ellipsize="end"
+            android:gravity="center_vertical"
             android:maxLines="1"
-            />
+            android:textAlignment="gravity"
+            android:textSize="@dimen/font_large"
+            tools:text="Product name with a long long long description" />
 
         <TextView
             android:id="@+id/product_details"
-            android:layout_row="1"
             android:layout_width="fill_parent"
-            android:textSize="@dimen/font_normal"
-            android:gravity="center_vertical"
-            tools:text="Product details which are also sometimes very long"
+            android:layout_row="1"
             android:ellipsize="end"
+            android:gravity="center_vertical"
             android:maxLines="1"
-            />
+            android:textSize="@dimen/font_normal"
+            tools:text="Product details which are also sometimes very long" />
 
     </GridLayout>
+
+    <ImageView
+        android:id="@+id/img_grade"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="@dimen/spacing_small"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

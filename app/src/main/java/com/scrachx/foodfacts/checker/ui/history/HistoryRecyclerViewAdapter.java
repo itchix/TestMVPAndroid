@@ -1,6 +1,7 @@
 package com.scrachx.foodfacts.checker.ui.history;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.db.model.History;
 import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.ui.search.ProductsRecyclerViewAdapter;
+import com.scrachx.foodfacts.checker.utils.ImageUtils;
 
 import java.util.List;
 
@@ -82,6 +84,10 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter {
                 stringBuilder.append(" - ").append(history.getQuantity());
             }
 
+            if (isNotEmpty(history.getGrade())) {
+                productHolder.vProductGrade.setImageDrawable(ContextCompat.getDrawable(context, ImageUtils.getImageGradeColor(history.getGrade())));
+            }
+
             productHolder.vProductDetails.setText(stringBuilder.toString());
         }
 
@@ -103,12 +109,14 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter {
     static class HistoryViewHolder extends RecyclerView.ViewHolder {
 
         ImageView vProductImage;
+        ImageView vProductGrade;
         TextView vProductName;
         TextView vProductDetails;
 
         HistoryViewHolder(View v) {
             super(v);
             vProductImage = (ImageView) v.findViewById(R.id.img_product);
+            vProductGrade = (ImageView) v.findViewById(R.id.img_grade);
             vProductName = (TextView) v.findViewById(R.id.name_product);
             vProductDetails = (TextView) v.findViewById(R.id.product_details);
         }

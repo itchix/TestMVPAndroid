@@ -20,14 +20,15 @@ public class History {
     private Date lastSeen;
     private String barcode;
     private String quantity;
+    private String grade;
 
     @Generated(hash = 869423138)
     public History() {
     }
 
-    @Generated(hash = 755805430)
+    @Generated(hash = 1654388139)
     public History(Long id, String title, String brands, String url, Date lastSeen,
-            String barcode, String quantity) {
+            String barcode, String quantity, String grade) {
         this.id = id;
         this.title = title;
         this.brands = brands;
@@ -35,16 +36,18 @@ public class History {
         this.lastSeen = lastSeen;
         this.barcode = barcode;
         this.quantity = quantity;
+        this.grade = grade;
     }
 
     public History(String title, String brands, String url, Date lastSeen,
-                   String barcode, String quantity) {
+                   String barcode, String quantity, String grade) {
         this.title = title;
         this.brands = brands;
         this.url = url;
         this.lastSeen = lastSeen;
         this.barcode = barcode;
         this.quantity = quantity;
+        this.grade = grade;
     }
 
     public String getTitle() {
@@ -103,4 +106,11 @@ public class History {
         this.quantity = quantity;
     }
 
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
 }

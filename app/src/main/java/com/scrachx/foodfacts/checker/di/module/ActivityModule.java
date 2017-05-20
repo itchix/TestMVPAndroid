@@ -18,12 +18,14 @@ package com.scrachx.foodfacts.checker.di.module;
 import android.app.Activity;
 import android.content.Context;
 
-import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.di.ActivityContext;
 import com.scrachx.foodfacts.checker.di.PerActivity;
 import com.scrachx.foodfacts.checker.ui.about.AboutMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.about.AboutMvpView;
 import com.scrachx.foodfacts.checker.ui.about.AboutPresenter;
+import com.scrachx.foodfacts.checker.ui.allergens.AllergensMvpPresenter;
+import com.scrachx.foodfacts.checker.ui.allergens.AllergensMvpView;
+import com.scrachx.foodfacts.checker.ui.allergens.AllergensPresenter;
 import com.scrachx.foodfacts.checker.ui.fullscreen.FullScreenImageMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.fullscreen.FullScreenImageMvpView;
 import com.scrachx.foodfacts.checker.ui.fullscreen.FullScreenImagePresenter;
@@ -135,6 +137,12 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
+    AllergensMvpPresenter<AllergensMvpView> provideAllergensPresenter(AllergensPresenter<AllergensMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
     FullScreenImageMvpPresenter<FullScreenImageMvpView> provideFullScreenImagePresenter(FullScreenImagePresenter<FullScreenImageMvpView> presenter) {
         return presenter;
     }
@@ -168,4 +176,5 @@ public class ActivityModule {
     IngredientsProductMvpPresenter<IngredientsProductMvpView> provideIngredientsProductPresenter(IngredientsProductPresenter<IngredientsProductMvpView> presenter) {
         return presenter;
     }
+
 }

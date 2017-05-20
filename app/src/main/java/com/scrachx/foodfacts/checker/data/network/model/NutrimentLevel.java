@@ -51,13 +51,13 @@ public enum NutrimentLevel {
 
         switch (this) {
             case MODERATE:
-                drawable = R.drawable.moderate;
+                drawable = R.drawable.ic_circle_yellow_24dp;
                 break;
             case LOW:
-                drawable = R.drawable.low;
+                drawable = R.drawable.ic_circle_green_24dp;
                 break;
             case HIGH:
-                drawable = R.drawable.high;
+                drawable = R.drawable.ic_circle_red_24dp;
                 break;
             default:
                 // no job

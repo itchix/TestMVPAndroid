@@ -18,6 +18,8 @@ package com.scrachx.foodfacts.checker.di.component;
 import com.scrachx.foodfacts.checker.di.PerActivity;
 import com.scrachx.foodfacts.checker.di.module.ActivityModule;
 import com.scrachx.foodfacts.checker.ui.about.AboutFragment;
+import com.scrachx.foodfacts.checker.ui.allergens.AllergensActivity;
+import com.scrachx.foodfacts.checker.ui.allergens.AllergensFragment;
 import com.scrachx.foodfacts.checker.ui.fullscreen.FullScreenImageActivity;
 import com.scrachx.foodfacts.checker.ui.history.HistoryFragment;
 import com.scrachx.foodfacts.checker.ui.login.LoginActivity;
@@ -50,6 +52,8 @@ public interface ActivityComponent {
     void inject(FullScreenImageActivity activity);
 
     void inject(ProductActivity activity);
+
+    void inject(AllergensActivity activity);
 
     void inject(ScannerFragment fragment);
 
