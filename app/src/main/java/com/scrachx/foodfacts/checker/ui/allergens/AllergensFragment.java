@@ -13,13 +13,6 @@ public class AllergensFragment extends PreferenceFragmentCompat {
 
     public static final String TAG = "AllergensFragment";
 
-    public static AllergensFragment newInstance() {
-        Bundle args = new Bundle();
-        AllergensFragment fragment = new AllergensFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences_allergens, rootKey);

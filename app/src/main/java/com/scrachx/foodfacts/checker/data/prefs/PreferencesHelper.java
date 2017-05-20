@@ -41,7 +41,25 @@ public interface PreferencesHelper {
     String getCurrentUserProfilePicUrl();
     void setCurrentUserProfilePicUrl(String profilePicUrl);
 
-    String getAccessToken();
-    void setAccessToken(String accessToken);
+    boolean getAllergensPalmOil();
+    void setAllergensPalmOil(boolean activate);
+
+    boolean getAllergensGluten();
+    void setAllergensGluten(boolean activate);
+
+    boolean getAllergensEggs();
+    void setAllergensEggs(boolean activate);
+
+    boolean getAllergensFish();
+    void setAllergensFish(boolean activate);
+
+    boolean getAllergensSoy();
+    void setAllergensSoy(boolean activate);
+
+    boolean getAllergensMilk();
+    void setAllergensMilk(boolean activate);
+
+    boolean getAllergensNuts();
+    void setAllergensNuts(boolean activate);
 
 }

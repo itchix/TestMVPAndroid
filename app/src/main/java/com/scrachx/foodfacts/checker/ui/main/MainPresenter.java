@@ -91,6 +91,11 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     }
 
     @Override
+    public void onDrawerOptionAllergensClick() {
+        getMvpView().showAllergensActivity();
+    }
+
+    @Override
     public void onDrawerOptionAboutClick() {
         getMvpView().showAboutFragment();
     }

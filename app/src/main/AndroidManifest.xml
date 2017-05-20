@@ -79,6 +79,10 @@
             android:name=".ui.fullscreen.FullScreenImageActivity"
             android:launchMode="singleTop" />
 
+        <activity
+            android:name=".ui.allergens.AllergensActivity"
+            android:launchMode="singleTop" />
+
     </application>
 
 </manifest>

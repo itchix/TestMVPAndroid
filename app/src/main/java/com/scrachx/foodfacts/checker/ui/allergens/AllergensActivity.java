@@ -1,4 +1,4 @@
-package com.scrachx.foodfacts.checker.ui.scanner;
+package com.scrachx.foodfacts.checker.ui.allergens;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,18 +10,32 @@ import android.view.MenuItem;
 import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.ui.base.BaseActivity;
 
+import javax.inject.Inject;
 
-public class ScannerActivity extends BaseActivity {
+import butterknife.ButterKnife;
+
+/**
+ * Created by scots on 20/05/2017.
+ */
+
+public class AllergensActivity extends BaseActivity implements AllergensMvpView {
+
+    @Inject
+    AllergensMvpPresenter<AllergensMvpView> mPresenter;
 
     public static Intent getStartIntent(Context context) {
-        Intent intent = new Intent(context, ScannerActivity.class);
+        Intent intent = new Intent(context, AllergensActivity.class);
         return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scanner);
+        setContentView(R.layout.activity_allergens);
+        getActivityComponent().inject(this);
+        setUnBinder(ButterKnife.bind(this));
+        mPresenter.onAttach(this);
+
         setUp();
     }
 
@@ -39,7 +53,7 @@ public class ScannerActivity extends BaseActivity {
     @Override
     protected void setUp() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.try_it_scan_now);
+        toolbar.setTitle(R.string.allergens);
         setSupportActionBar(toolbar);
         final ActionBar ab = getSupportActionBar();
         if(ab != null) {

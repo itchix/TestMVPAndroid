@@ -1,6 +1,7 @@
 package com.scrachx.foodfacts.checker.ui.product;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,11 +17,16 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.scrachx.foodfacts.checker.R;
+import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.base.BaseActivity;
 import com.scrachx.foodfacts.checker.ui.product.ingredients.IngredientsProductFragment;
@@ -28,7 +34,10 @@ import com.scrachx.foodfacts.checker.ui.product.nutrition.NutritionProductFragme
 import com.scrachx.foodfacts.checker.ui.product.nutritioninfo.NutritionInfoProductFragment;
 import com.scrachx.foodfacts.checker.ui.product.summary.SummaryProductFragment;
 import com.scrachx.foodfacts.checker.ui.scanner.ScannerActivity;
+import com.scrachx.foodfacts.checker.utils.AllergensUtils;
 import com.scrachx.foodfacts.checker.utils.PermissionUtils;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -57,6 +66,8 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
 
     @BindView(R.id.tabs)
     TabLayout tabLayout;
+
+    private AlertDialog mDialog;
 
     private ShareActionProvider mShareActionProvider;
 
@@ -136,6 +147,69 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
             }
         }
         mState = (State) getIntent().getBundleExtra("bundle").getParcelable("state");
+        checkAllergens();
+    }
+
+    private void checkAllergens() {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogForm = inflater.inflate(R.layout.dialog_allergens, null, false);
+
+        Button buttonOk = (Button) dialogForm.findViewById(R.id.button_ok);
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog.dismiss();
+            }
+        });
+        ArrayList<AllergensItem> arrayOfAllergens = new ArrayList<AllergensItem>();
+        AllergensViewAdapter adapter = new AllergensViewAdapter(this, arrayOfAllergens);
+        ListView listView = (ListView) dialogForm.findViewById(R.id.list_view_allergens);
+        listView.setAdapter(adapter);
+
+        Product product = mState.getProduct();
+        if(mPresenter.getDataManager().getAllergensEggs()) {
+            if(AllergensUtils.checkForAllergens("eggs", product)) {
+                adapter.add(new AllergensItem(getString(R.string.txt_allergens_eggs), getDrawable(R.drawable.ic_egg)));
+            }
+        }
+        if(mPresenter.getDataManager().getAllergensFish()) {
+            if(AllergensUtils.checkForAllergens("fish", product)) {
+                adapter.add(new AllergensItem(getString(R.string.txt_allergens_fish), getDrawable(R.drawable.ic_fish)));
+            }
+        }
+        if(mPresenter.getDataManager().getAllergensMilk()) {
+            if(AllergensUtils.checkForAllergens("milk", product)) {
+                adapter.add(new AllergensItem(getString(R.string.txt_allergens_milk), getDrawable(R.drawable.ic_milk)));
+            }
+        }
+        if(mPresenter.getDataManager().getAllergensGluten()) {
+            if(AllergensUtils.checkForAllergens("gluten", product)) {
+                adapter.add(new AllergensItem(getString(R.string.txt_allergens_gluten), getDrawable(R.drawable.ic_gluten)));
+            }
+        }
+        if(mPresenter.getDataManager().getAllergensNuts()) {
+            if(AllergensUtils.checkForAllergens("nuts", product)) {
+                adapter.add(new AllergensItem(getString(R.string.txt_allergens_nuts), getDrawable(R.drawable.ic_peanut)));
+            }
+        }
+        if(mPresenter.getDataManager().getAllergensSoy()) {
+            if(AllergensUtils.checkForAllergens("soybeans", product)) {
+                adapter.add(new AllergensItem(getString(R.string.txt_allergens_eggs), getDrawable(R.drawable.ic_soybean)));
+            }
+        }
+        if(mPresenter.getDataManager().getAllergensPalmOil()) {
+            if(AllergensUtils.checkForAllergens("palmoil", product)) {
+                adapter.add(new AllergensItem(getString(R.string.txt_palm_oil_product), getDrawable(R.drawable.ic_palm)));
+            }
+        }
+
+        if(adapter.getCount() > 0 ) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(dialogForm);
+            builder.create();
+            mDialog = builder.create();
+            mDialog.show();
+        }
     }
 
 

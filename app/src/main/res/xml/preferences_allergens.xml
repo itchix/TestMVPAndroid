@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:key="allergens_palm_oil"
+        android:id="@+id/pref_key_palm_oil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/txt_allergens_palm_oil"
+        android:summaryOff="Off"
+        android:summaryOn ="On"
+        android:defaultValue="false"
+        android:icon="@drawable/ic_palm"
+        />
+
+    <SwitchPreference
+        android:key="allergens_gluten"
+        android:id="@+id/pref_key_gluten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/txt_allergens_gluten"
+        android:summaryOff="Off"
+        android:summaryOn ="On"
+        android:defaultValue="false"
+        android:icon="@drawable/ic_gluten"
+        />
+
+    <SwitchPreference
+        android:key="allergens_eggs"
+        android:id="@+id/pref_key_eggs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/txt_allergens_eggs"
+        android:summaryOff="@string/txt_off"
+        android:summaryOn ="@string/txt_on"
+        android:defaultValue="false"
+        android:icon="@drawable/ic_egg"
+        />
+
+    <SwitchPreference
+        android:key="allergens_fish"
+        android:id="@+id/pref_key_fish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/txt_allergens_fish"
+        android:summaryOff="@string/txt_off"
+        android:summaryOn ="@string/txt_on"
+        android:defaultValue="false"
+        android:icon="@drawable/ic_fish"
+        />
+
+    <SwitchPreference
+        android:key="allergens_soy"
+        android:id="@+id/pref_key_soy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/txt_allergens_soy"
+        android:summaryOff="@string/txt_off"
+        android:summaryOn ="@string/txt_on"
+        android:defaultValue="false"
+        android:icon="@drawable/ic_soybean"
+        />
+
+    <SwitchPreference
+        android:key="allergens_milk"
+        android:id="@+id/pref_key_milk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/txt_allergens_milk"
+        android:summaryOff="@string/txt_off"
+        android:summaryOn ="@string/txt_on"
+        android:defaultValue="false"
+        android:icon="@drawable/ic_milk"
+        />
+
+    <SwitchPreference
+        android:key="allergens_nuts"
+        android:id="@+id/pref_key_nuts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/txt_allergens_nuts"
+        android:summaryOff="@string/txt_off"
+        android:summaryOn ="@string/txt_on"
+        android:defaultValue="false"
+        android:icon="@drawable/ic_peanut"
+        />
+
+</PreferenceScreen>

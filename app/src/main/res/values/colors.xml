@@ -47,6 +47,15 @@
     <color name="orange">#FFA500</color>
     <color name="yellow">#fff44f</color>
 
+    <!-- Color scheme -->
+    <color name="yellow_dark_scheme">#ffcc5c</color>
+    <color name="green_dark_scheme">#88d8b0</color>
+    <color name="yellow_light_scheme">#ffeead</color>
+    <color name="green_light_scheme">#96ceb4</color>
+    <color name="red_scheme">#ff6f69</color>
+    <color name="orange_scheme">#F97C2C</color>
+    <color name="grey_scheme">#b7b7b7</color>
+
     <!-- Material colors -->
     <color name="red_50">#fde0dc</color>
     <color name="red_100">#f9bdbb</color>

@@ -73,16 +73,6 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public String getAccessToken() {
-        return mPreferencesHelper.getAccessToken();
-    }
-
-    @Override
-    public void setAccessToken(String accessToken) {
-        mPreferencesHelper.setAccessToken(accessToken);
-    }
-
-    @Override
     public Observable<Long> insertHistory(History history) {
         return mDbHelper.insertHistory(history);
     }
@@ -163,6 +153,76 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public boolean getAllergensPalmOil() {
+        return mPreferencesHelper.getAllergensPalmOil();
+    }
+
+    @Override
+    public void setAllergensPalmOil(boolean activate) {
+        mPreferencesHelper.setAllergensPalmOil(activate);
+    }
+
+    @Override
+    public boolean getAllergensGluten() {
+        return mPreferencesHelper.getAllergensGluten();
+    }
+
+    @Override
+    public void setAllergensGluten(boolean activate) {
+        mPreferencesHelper.setAllergensGluten(activate);
+    }
+
+    @Override
+    public boolean getAllergensEggs() {
+        return mPreferencesHelper.getAllergensEggs();
+    }
+
+    @Override
+    public void setAllergensEggs(boolean activate) {
+        mPreferencesHelper.setAllergensEggs(activate);
+    }
+
+    @Override
+    public boolean getAllergensFish() {
+        return mPreferencesHelper.getAllergensFish();
+    }
+
+    @Override
+    public void setAllergensFish(boolean activate) {
+        mPreferencesHelper.setAllergensFish(activate);
+    }
+
+    @Override
+    public boolean getAllergensSoy() {
+        return mPreferencesHelper.getAllergensSoy();
+    }
+
+    @Override
+    public void setAllergensSoy(boolean activate) {
+        mPreferencesHelper.setAllergensSoy(activate);
+    }
+
+    @Override
+    public boolean getAllergensMilk() {
+        return mPreferencesHelper.getAllergensMilk();
+    }
+
+    @Override
+    public void setAllergensMilk(boolean activate) {
+        mPreferencesHelper.setAllergensMilk(activate);
+    }
+
+    @Override
+    public boolean getAllergensNuts() {
+        return mPreferencesHelper.getAllergensNuts();
+    }
+
+    @Override
+    public void setAllergensNuts(boolean activate) {
+        mPreferencesHelper.setAllergensNuts(activate);
+    }
+
+    @Override
     public void updateUserInfo(
             String accessToken,
             Long userId,
@@ -171,7 +231,6 @@ public class AppDataManager implements DataManager {
             String email,
             String profilePicPath) {
 
-        setAccessToken(accessToken);
         setCurrentUserId(userId);
         setCurrentUserLoggedInMode(loggedInMode);
         setCurrentUserName(userName);

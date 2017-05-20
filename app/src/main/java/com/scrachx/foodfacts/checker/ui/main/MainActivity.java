@@ -50,6 +50,8 @@ import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.db.model.Question;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.about.AboutFragment;
+import com.scrachx.foodfacts.checker.ui.allergens.AllergensActivity;
+import com.scrachx.foodfacts.checker.ui.allergens.AllergensFragment;
 import com.scrachx.foodfacts.checker.ui.base.BaseActivity;
 import com.scrachx.foodfacts.checker.ui.custom.RoundedImageView;
 import com.scrachx.foodfacts.checker.ui.history.HistoryFragment;
@@ -105,11 +107,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         getActivityComponent().inject(this);
-
         setUnBinder(ButterKnife.bind(this));
-
         mPresenter.onAttach(this);
 
         setUp();
@@ -256,12 +255,13 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Override
     public void showSearchFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .disallowAddToBackStack()
-                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .add(R.id.fragment_container, SearchFragment.newInstance(), SearchFragment.TAG)
-                .commit();
+        mSearchView.setIconified(false);
+        mSearchView.clearFocus();
+    }
+
+    @Override
+    public void showAllergensActivity() {
+        startActivity(AllergensActivity.getStartIntent(this));
     }
 
     @Override
@@ -362,6 +362,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                                 return true;
                             case R.id.nav_item_history:
                                 mPresenter.onDrawerOptionHistoryClick();
+                                return true;
+                            case R.id.nav_item_allergens:
+                                mPresenter.onDrawerOptionAllergensClick();
                                 return true;
                             case R.id.nav_item_scan:
                                 mPresenter.onDrawerOptionScanClick();

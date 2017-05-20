@@ -243,4 +243,16 @@
     <string name="txt_saturated_fat">Satured fat</string>
     <string name="txt_carbon_footprint">"Carbon footprint / CO2 emissions: "</string>
 
+    <string name="txt_allergens_palm_oil">"Palm oil"</string>
+    <string name="txt_allergens_gluten">"Gluten"</string>
+    <string name="txt_allergens_eggs">"Eggs"</string>
+    <string name="txt_allergens_fish">"Fish"</string>
+    <string name="txt_allergens_soy">"Soy"</string>
+    <string name="txt_allergens_milk">"Milk"</string>
+    <string name="txt_allergens_nuts">"Nuts"</string>
+
+    <string name="txt_on">On</string>
+    <string name="txt_off">Off</string>
+    <string name="txt_allergens_detected">Allergens detected :</string>
+
 </resources>
