@@ -257,4 +257,12 @@
     <string name="txt_charts_begining">Since the begining</string>
     <string name="txt_products_viewed">products viewed</string>
 
+    <string name="txt_history_stats_title">History statistics</string>
+    <string name="txt_history_stats_desc_a">very good</string>
+    <string name="txt_history_stats_desc_b">good</string>
+    <string name="txt_history_stats_desc_c">acceptable</string>
+    <string name="txt_history_stats_desc_d">bad</string>
+    <string name="txt_history_stats_desc_e">very bad</string>
+    <string name="txt_history_stats_desc_nc">unknown</string>
+
 </resources>

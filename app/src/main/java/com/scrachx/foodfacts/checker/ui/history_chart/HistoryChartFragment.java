@@ -1,6 +1,7 @@
 package com.scrachx.foodfacts.checker.ui.history_chart;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -27,6 +28,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 
 /**
  * Created by scots on 21/05/2017.
@@ -85,6 +87,10 @@ public class HistoryChartFragment extends BaseFragment implements HistoryChartMv
             }
         }
 
+        ArrayList<HistoryStatsItem> arrayOfHistory = new ArrayList<HistoryStatsItem>();
+        HistoryChartViewAdapter adapter = new HistoryChartViewAdapter(getActivity(), arrayOfHistory);
+        mListStats.setAdapter(adapter);
+
         ArrayList<Integer> arrayDrawGraph = new ArrayList<Integer>();
         ArrayList<Integer> colors = new ArrayList<Integer>();
         ArrayList<String> percent = new ArrayList<String>();
@@ -93,25 +99,41 @@ public class HistoryChartFragment extends BaseFragment implements HistoryChartMv
             float valuePercent = ((float)entry.getValue()/(float)total)*100;
             percent.add(String.valueOf(valuePercent)+"%");
             int color;
+            Drawable colorD;
+            String description;
             switch (entry.getKey()) {
                 case "a":
                     color = R.color.green_dark_scheme;
+                    colorD = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle_dark_green_24dp);
+                    description = getString(R.string.txt_history_stats_desc_a);
                     break;
                 case "b":
                     color = R.color.green_light_scheme;
+                    colorD = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle_green_24dp);
+                    description = getString(R.string.txt_history_stats_desc_b);
                     break;
                 case "c":
                     color = R.color.yellow_dark_scheme;
+                    colorD = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle_yellow_24dp);
+                    description = getString(R.string.txt_history_stats_desc_c);
                     break;
                 case "d":
                     color = R.color.orange_scheme;
+                    colorD = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle_orange_24dp);
+                    description = getString(R.string.txt_history_stats_desc_d);
                     break;
                 case "e":
                     color = R.color.red_scheme;
+                    colorD = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle_red_24dp);
+                    description = getString(R.string.txt_history_stats_desc_e);
                     break;
                 default:
                     color = R.color.grey_scheme;
+                    colorD = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle_grey_24dp);
+                    description = getString(R.string.txt_history_stats_desc_nc);
+                    break;
             }
+            adapter.add(new HistoryStatsItem(description, entry.getValue(), colorD));
             colors.add(ContextCompat.getColor(getActivity(), color));
         }
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
@@ -136,14 +158,19 @@ public class HistoryChartFragment extends BaseFragment implements HistoryChartMv
         mPieChart.getLegend().setEnabled(false);
         mPieChart.getDescription().setEnabled(false);
         mPieChart.setCenterText(getString(R.string.txt_charts_begining) + ": " + String.valueOf(total) + " " + getString(R.string.txt_products_viewed));
-        mPieChart.animateY(4000);
+        mPieChart.animateY(2000);
     }
 
     @Override
     protected void setUp(View view) {
         mPresenter.onLoadHistoryStats();
+    }
 
-
+    @OnItemClick(R.id.list_view_stats)
+    protected void OnClickListStats(int position) {
+        HistoryStatsItem historyItem = (HistoryStatsItem) mListStats.getItemAtPosition(position);
+        // TODO : go to history page
+        // TODO : title page
     }
 
 }

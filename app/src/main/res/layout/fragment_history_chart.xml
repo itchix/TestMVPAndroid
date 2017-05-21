@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/spacing_small"
+        android:gravity="center"
+        android:textSize="@dimen/font_larger"
+        android:textStyle="bold"
+        android:text="@string/txt_history_stats_title" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/history_chart"
