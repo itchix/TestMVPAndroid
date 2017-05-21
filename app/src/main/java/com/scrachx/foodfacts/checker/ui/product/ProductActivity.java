@@ -83,11 +83,8 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-
         getActivityComponent().inject(this);
-
         setUnBinder(ButterKnife.bind(this));
-
         mPresenter.onAttach(this);
 
         setUp();
@@ -199,7 +196,7 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
         }
         if(mPresenter.getDataManager().getAllergensPalmOil()) {
             if(AllergensUtils.checkForAllergens("palmoil", product)) {
-                adapter.add(new AllergensItem(getString(R.string.txt_palm_oil_product), getDrawable(R.drawable.ic_palm)));
+                adapter.add(new AllergensItem(getString(R.string.txt_allergens_palm_oil), getDrawable(R.drawable.ic_palm)));
             }
         }
 

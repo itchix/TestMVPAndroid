@@ -32,6 +32,9 @@ import com.scrachx.foodfacts.checker.ui.fullscreen.FullScreenImagePresenter;
 import com.scrachx.foodfacts.checker.ui.history.HistoryMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.history.HistoryMvpView;
 import com.scrachx.foodfacts.checker.ui.history.HistoryPresenter;
+import com.scrachx.foodfacts.checker.ui.history_chart.HistoryChartMvpPresenter;
+import com.scrachx.foodfacts.checker.ui.history_chart.HistoryChartMvpView;
+import com.scrachx.foodfacts.checker.ui.history_chart.HistoryChartPresenter;
 import com.scrachx.foodfacts.checker.ui.login.LoginMvpPresenter;
 import com.scrachx.foodfacts.checker.ui.login.LoginMvpView;
 import com.scrachx.foodfacts.checker.ui.login.LoginPresenter;
@@ -154,6 +157,11 @@ public class ActivityModule {
 
     @Provides
     HistoryMvpPresenter<HistoryMvpView> provideHistoryPresenter(HistoryPresenter<HistoryMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    HistoryChartMvpPresenter<HistoryChartMvpView> provideHistoryChartPresenter(HistoryChartPresenter<HistoryChartMvpView> presenter) {
         return presenter;
     }
 

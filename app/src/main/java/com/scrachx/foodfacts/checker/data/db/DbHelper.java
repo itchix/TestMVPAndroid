@@ -20,6 +20,7 @@ import com.scrachx.foodfacts.checker.data.db.model.Option;
 import com.scrachx.foodfacts.checker.data.db.model.Question;
 import com.scrachx.foodfacts.checker.data.db.model.User;
 import com.scrachx.foodfacts.checker.ui.history.HistoryItem;
+import com.scrachx.foodfacts.checker.ui.history_chart.HistoryStatsItem;
 
 import java.util.List;
 
@@ -35,6 +36,8 @@ public interface DbHelper {
     Observable<Long> insertHistory(final History history);
 
     Observable<HistoryItem> getHistory(final int page);
+
+    Observable<List<History>> getHistoryStats();
 
     Observable<Long> insertUser(final User user);
 

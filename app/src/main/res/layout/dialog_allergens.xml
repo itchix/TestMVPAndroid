@@ -30,6 +30,7 @@
 
     <ListView
         android:id="@+id/list_view_allergens"
+        android:divider="@null"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/spacing_normal"

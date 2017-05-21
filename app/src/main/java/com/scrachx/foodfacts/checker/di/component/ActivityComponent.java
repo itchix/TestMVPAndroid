@@ -22,6 +22,7 @@ import com.scrachx.foodfacts.checker.ui.allergens.AllergensActivity;
 import com.scrachx.foodfacts.checker.ui.allergens.AllergensFragment;
 import com.scrachx.foodfacts.checker.ui.fullscreen.FullScreenImageActivity;
 import com.scrachx.foodfacts.checker.ui.history.HistoryFragment;
+import com.scrachx.foodfacts.checker.ui.history_chart.HistoryChartFragment;
 import com.scrachx.foodfacts.checker.ui.login.LoginActivity;
 import com.scrachx.foodfacts.checker.ui.main.MainActivity;
 import com.scrachx.foodfacts.checker.ui.product.ProductActivity;
@@ -58,6 +59,8 @@ public interface ActivityComponent {
     void inject(ScannerFragment fragment);
 
     void inject(HistoryFragment fragment);
+
+    void inject(HistoryChartFragment fragment);
 
     void inject(MainActivity activity);
 

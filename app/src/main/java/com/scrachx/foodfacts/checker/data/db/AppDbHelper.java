@@ -23,6 +23,10 @@ import com.scrachx.foodfacts.checker.data.db.model.Option;
 import com.scrachx.foodfacts.checker.data.db.model.Question;
 import com.scrachx.foodfacts.checker.data.db.model.User;
 import com.scrachx.foodfacts.checker.ui.history.HistoryItem;
+import com.scrachx.foodfacts.checker.ui.history_chart.HistoryStatsItem;
+
+import org.greenrobot.greendao.query.Query;
+import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -63,6 +67,16 @@ public class AppDbHelper implements DbHelper {
             @Override
             public HistoryItem call() throws Exception {
                 return new HistoryItem(mDaoSession.getHistoryDao().queryBuilder().limit(20).offset(page).orderDesc(HistoryDao.Properties.LastSeen).list(), mDaoSession.getHistoryDao().queryBuilder().count());
+            }
+        });
+    }
+
+    @Override
+    public Observable<List<History>> getHistoryStats() {
+        return Observable.fromCallable(new Callable<List<History>>() {
+            @Override
+            public List<History> call() throws Exception {
+                return mDaoSession.getHistoryDao().loadAll();
             }
         });
     }

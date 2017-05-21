@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            app:tabIndicatorColor="@color/green_dark_scheme"
             app:tabGravity="fill"
             app:tabMode="scrollable" />
 
@@ -42,6 +43,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:backgroundTint="@color/green_dark_scheme"
         android:layout_gravity="top|center_horizontal"
         android:layout_margin="@dimen/activity_vertical_margin"
         android:contentDescription="@string/try_it_scan_now"

@@ -143,46 +143,6 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     }
 
     @Override
-    public void onViewInitialized() {
-        getCompositeDisposable().add(getDataManager()
-                .getAllQuestions()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<Question>>() {
-                    @Override
-                    public void accept(List<Question> questionList) throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-
-                        if (questionList != null) {
-                            getMvpView().refreshQuestionnaire(questionList);
-                        }
-                    }
-                }));
-    }
-
-    @Override
-    public void onCardExhausted() {
-        getCompositeDisposable().add(getDataManager()
-                .getAllQuestions()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<Question>>() {
-                    @Override
-                    public void accept(List<Question> questionList) throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-
-                        if (questionList != null) {
-                            getMvpView().reloadQuestionnaire(questionList);
-                        }
-                    }
-                }));
-    }
-
-    @Override
     public void onNavMenuCreated() {
         if (!isViewAttached()) {
             return;

@@ -40,33 +40,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.scrachx.foodfacts.checker.BuildConfig;
 import com.scrachx.foodfacts.checker.R;
-import com.scrachx.foodfacts.checker.data.db.model.Question;
 import com.scrachx.foodfacts.checker.data.network.model.State;
 import com.scrachx.foodfacts.checker.ui.about.AboutFragment;
 import com.scrachx.foodfacts.checker.ui.allergens.AllergensActivity;
-import com.scrachx.foodfacts.checker.ui.allergens.AllergensFragment;
 import com.scrachx.foodfacts.checker.ui.base.BaseActivity;
 import com.scrachx.foodfacts.checker.ui.custom.RoundedImageView;
 import com.scrachx.foodfacts.checker.ui.history.HistoryFragment;
+import com.scrachx.foodfacts.checker.ui.history_chart.HistoryChartFragment;
 import com.scrachx.foodfacts.checker.ui.login.LoginActivity;
 import com.scrachx.foodfacts.checker.ui.product.ProductActivity;
 import com.scrachx.foodfacts.checker.ui.scanner.ScannerActivity;
 import com.scrachx.foodfacts.checker.ui.search.SearchFragment;
 import com.scrachx.foodfacts.checker.utils.PermissionUtils;
-import com.scrachx.foodfacts.checker.utils.ScreenUtils;
-import com.mindorks.placeholderview.SwipeDecor;
-import com.mindorks.placeholderview.SwipePlaceHolderView;
-import com.mindorks.placeholderview.listeners.ItemRemovedListener;
-
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -88,9 +78,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @BindView(R.id.tv_app_version)
     TextView mAppVersionTextView;
-
-    @BindView(R.id.cards_container)
-    SwipePlaceHolderView mCardsContainerView;
 
     SearchView mSearchView;
     private TextView mNameTextView;
@@ -136,12 +123,10 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                 Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
                 // Not replace if no search has been done (no switch of fragment)
-                if (!(currentFragment instanceof SearchFragment)) {
+                if (currentFragment instanceof SearchFragment) {
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .addToBackStack(null)
-                            .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                            .add(R.id.fragment_container, SearchFragment.newInstance(), SearchFragment.TAG)
+                            .replace(R.id.fragment_container, SearchFragment.newInstance(), SearchFragment.TAG)
                             .commit();
                 }
 
@@ -167,31 +152,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         } else if(fragmentHistory != null){
             onFragmentDetached(HistoryFragment.TAG);
         }
-    }
-
-    @Override
-    public void refreshQuestionnaire(List<Question> questionList) {
-        for (Question question : questionList) {
-            if (question != null
-                    && question.getOptionList() != null
-                    && question.getOptionList().size() == 3) {
-                mCardsContainerView.addView(new QuestionCard(question));
-            }
-        }
-    }
-
-    @Override
-    public void reloadQuestionnaire(List<Question> questionList) {
-        refreshQuestionnaire(questionList);
-        ScaleAnimation animation =
-                new ScaleAnimation(
-                        1.15f, 1, 1.15f, 1,
-                        Animation.RELATIVE_TO_SELF, 0.5f,
-                        Animation.RELATIVE_TO_SELF, 0.5f);
-
-        mCardsContainerView.setAnimation(animation);
-        animation.setDuration(100);
-        animation.start();
     }
 
     @Override
@@ -223,8 +183,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Override
     public void onFragmentAttached() {
-        if (mDrawer != null)
-            mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        //if (mDrawer != null)
+        //    mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     @Override
@@ -238,8 +198,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                     .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
                     .remove(fragment)
                     .commitNow();
-            if (mDrawer != null)
-                mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            //if (mDrawer != null)
+            //    mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
     }
 
@@ -309,40 +269,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         mDrawerToggle.syncState();
         setupNavMenu();
         mPresenter.onNavMenuCreated();
-        setupCardContainerView();
-        mPresenter.onViewInitialized();
-    }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, HistoryChartFragment.newInstance(), HistoryChartFragment.TAG)
+                .commit();
 
-    private void setupCardContainerView() {
-
-        int screenWidth = ScreenUtils.getScreenWidth(this);
-        int screenHeight = ScreenUtils.getScreenHeight(this);
-
-        mCardsContainerView.getBuilder()
-                .setDisplayViewCount(3)
-                .setHeightSwipeDistFactor(10)
-                .setWidthSwipeDistFactor(5)
-                .setSwipeDecor(new SwipeDecor()
-                        .setViewWidth((int) (0.90 * screenWidth))
-                        .setViewHeight((int) (0.75 * screenHeight))
-                        .setPaddingTop(20)
-                        .setSwipeRotationAngle(10)
-                        .setRelativeScale(0.01f));
-
-        mCardsContainerView.addItemRemoveListener(new ItemRemovedListener() {
-            @Override
-            public void onItemRemoved(int count) {
-                if (count == 0) {
-                    // reload the contents again after 1 sec delay
-                    new Handler(getMainLooper()).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mPresenter.onCardExhausted();
-                        }
-                    }, 800);
-                }
-            }
-        });
     }
 
     void setupNavMenu() {
@@ -430,9 +361,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                 mSearchView.clearFocus();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .disallowAddToBackStack()
-                        .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                        .add(R.id.fragment_container, SearchFragment.newInstance(args), SearchFragment.TAG)
+                        .replace(R.id.fragment_container, SearchFragment.newInstance(args), SearchFragment.TAG)
                         .commit();
             }
         }

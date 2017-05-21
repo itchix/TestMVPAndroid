@@ -83,6 +83,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Observable<List<History>> getHistoryStats() {
+        return mDbHelper.getHistoryStats();
+    }
+
+    @Override
     public Observable<Long> insertUser(User user) {
         return mDbHelper.insertUser(user);
     }

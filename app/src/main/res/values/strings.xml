@@ -254,5 +254,7 @@
     <string name="txt_on">On</string>
     <string name="txt_off">Off</string>
     <string name="txt_allergens_detected">Allergens detected :</string>
+    <string name="txt_charts_begining">Since the begining</string>
+    <string name="txt_products_viewed">products viewed</string>
 
 </resources>
