@@ -30,11 +30,11 @@
 
     <ListView
         android:id="@+id/list_view_allergens"
-        android:divider="@null"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_normal"
-        android:layout_weight="0.29" />
+        android:layout_weight="0.29"
+        android:divider="@null" />
 
     <Button
         android:id="@+id/button_ok"

@@ -143,7 +143,7 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
                 ActivityCompat.requestPermissions(this, new String[]{READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE}, PermissionUtils.MY_PERMISSIONS_REQUEST_STORAGE);
             }
         }
-        mState = (State) getIntent().getBundleExtra("bundle").getParcelable("state");
+        mState = getIntent().getBundleExtra("bundle").getParcelable("state");
         checkAllergens();
     }
 
@@ -151,7 +151,7 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogForm = inflater.inflate(R.layout.dialog_allergens, null, false);
 
-        Button buttonOk = (Button) dialogForm.findViewById(R.id.button_ok);
+        Button buttonOk = dialogForm.findViewById(R.id.button_ok);
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,47 +160,47 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
         });
         ArrayList<AllergensItem> arrayOfAllergens = new ArrayList<AllergensItem>();
         AllergensViewAdapter adapter = new AllergensViewAdapter(this, arrayOfAllergens);
-        ListView listView = (ListView) dialogForm.findViewById(R.id.list_view_allergens);
+        ListView listView = dialogForm.findViewById(R.id.list_view_allergens);
         listView.setAdapter(adapter);
 
         Product product = mState.getProduct();
-        if(mPresenter.getDataManager().getAllergensEggs()) {
-            if(AllergensUtils.checkForAllergens("eggs", product)) {
+        if (mPresenter.getDataManager().getAllergensEggs()) {
+            if (AllergensUtils.checkForAllergens("eggs", product)) {
                 adapter.add(new AllergensItem(getString(R.string.txt_allergens_eggs), getDrawable(R.drawable.ic_egg)));
             }
         }
-        if(mPresenter.getDataManager().getAllergensFish()) {
-            if(AllergensUtils.checkForAllergens("fish", product)) {
+        if (mPresenter.getDataManager().getAllergensFish()) {
+            if (AllergensUtils.checkForAllergens("fish", product)) {
                 adapter.add(new AllergensItem(getString(R.string.txt_allergens_fish), getDrawable(R.drawable.ic_fish)));
             }
         }
-        if(mPresenter.getDataManager().getAllergensMilk()) {
-            if(AllergensUtils.checkForAllergens("milk", product)) {
+        if (mPresenter.getDataManager().getAllergensMilk()) {
+            if (AllergensUtils.checkForAllergens("milk", product)) {
                 adapter.add(new AllergensItem(getString(R.string.txt_allergens_milk), getDrawable(R.drawable.ic_milk)));
             }
         }
-        if(mPresenter.getDataManager().getAllergensGluten()) {
-            if(AllergensUtils.checkForAllergens("gluten", product)) {
+        if (mPresenter.getDataManager().getAllergensGluten()) {
+            if (AllergensUtils.checkForAllergens("gluten", product)) {
                 adapter.add(new AllergensItem(getString(R.string.txt_allergens_gluten), getDrawable(R.drawable.ic_gluten)));
             }
         }
-        if(mPresenter.getDataManager().getAllergensNuts()) {
-            if(AllergensUtils.checkForAllergens("nuts", product)) {
+        if (mPresenter.getDataManager().getAllergensNuts()) {
+            if (AllergensUtils.checkForAllergens("nuts", product)) {
                 adapter.add(new AllergensItem(getString(R.string.txt_allergens_nuts), getDrawable(R.drawable.ic_peanut)));
             }
         }
-        if(mPresenter.getDataManager().getAllergensSoy()) {
-            if(AllergensUtils.checkForAllergens("soybeans", product)) {
+        if (mPresenter.getDataManager().getAllergensSoy()) {
+            if (AllergensUtils.checkForAllergens("soybeans", product)) {
                 adapter.add(new AllergensItem(getString(R.string.txt_allergens_eggs), getDrawable(R.drawable.ic_soybean)));
             }
         }
-        if(mPresenter.getDataManager().getAllergensPalmOil()) {
-            if(AllergensUtils.checkForAllergens("palmoil", product)) {
+        if (mPresenter.getDataManager().getAllergensPalmOil()) {
+            if (AllergensUtils.checkForAllergens("palmoil", product)) {
                 adapter.add(new AllergensItem(getString(R.string.txt_allergens_palm_oil), getDrawable(R.drawable.ic_palm)));
             }
         }
 
-        if(adapter.getCount() > 0 ) {
+        if (adapter.getCount() > 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(dialogForm);
             builder.create();
@@ -208,7 +208,6 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
             mDialog.show();
         }
     }
-
 
     private void setupViewPager(ViewPager viewPager) {
         String[] menuTitles = getResources().getStringArray(R.array.nav_drawer_items_product);
@@ -268,4 +267,5 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
         startActivity(ScannerActivity.getStartIntent(this));
         finish();
     }
+
 }
