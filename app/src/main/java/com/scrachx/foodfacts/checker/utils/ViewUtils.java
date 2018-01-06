@@ -48,4 +48,5 @@ public final class ViewUtils {
                     .getColor(context, com.scrachx.foodfacts.checker.R.color.dark_gray), PorterDuff.Mode.SRC_ATOP);
         }
     }
+    
 }

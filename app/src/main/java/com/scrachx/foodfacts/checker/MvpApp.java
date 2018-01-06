@@ -25,15 +25,13 @@ import com.scrachx.foodfacts.checker.di.component.ApplicationComponent;
 import com.scrachx.foodfacts.checker.di.component.DaggerApplicationComponent;
 import com.scrachx.foodfacts.checker.di.module.ApplicationModule;
 import com.scrachx.foodfacts.checker.utils.AppLogger;
+import com.scrachx.foodfacts.checker.utils.OkHttpUtil;
 
 import javax.inject.Inject;
 
+import okhttp3.OkHttpClient;
+import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-
-
-/**
- * Created by janisharali on 27/01/17.
- */
 
 public class MvpApp extends Application {
 
@@ -55,8 +53,14 @@ public class MvpApp extends Application {
         mApplicationComponent.inject(this);
 
         AppLogger.init();
+        try {
+            OkHttpUtil.init(false);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
 
-        AndroidNetworking.initialize(getApplicationContext());
+        OkHttpClient client = OkHttpUtil.getClient();
+        AndroidNetworking.initialize(getApplicationContext(), client);
         AndroidNetworking.setParserFactory(new JacksonParserFactory());
         if (BuildConfig.DEBUG) {
             AndroidNetworking.enableLogging(Level.BODY);
@@ -68,7 +72,6 @@ public class MvpApp extends Application {
     public ApplicationComponent getComponent() {
         return mApplicationComponent;
     }
-
 
     // Needed to replace the component with a test specific one
     public void setComponent(ApplicationComponent applicationComponent) {
