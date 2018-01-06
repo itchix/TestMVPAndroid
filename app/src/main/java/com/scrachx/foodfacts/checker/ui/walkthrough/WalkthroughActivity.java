@@ -2,7 +2,10 @@ package com.scrachx.foodfacts.checker.ui.walkthrough;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,11 +13,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.ui.base.BaseActivity;
 import com.scrachx.foodfacts.checker.ui.login.LoginActivity;
@@ -78,16 +80,16 @@ public class WalkthroughActivity extends BaseActivity implements WalkthroughMvpV
     }
 
     private void loadImageRequest(final View bg, String url, String urlThumb) {
-        DrawableRequestBuilder<String> thumbnailRequest = Glide
+        RequestBuilder<Drawable> thumbnailRequest = Glide
                 .with(this)
                 .load(urlThumb);
 
         Glide.with(this)
                 .load(url)
                 .thumbnail(thumbnailRequest)
-                .into(new SimpleTarget<GlideDrawable>() {
+                .into(new SimpleTarget<Drawable>() {
                     @Override
-                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                         bg.setBackground(resource);
                     }
                 });

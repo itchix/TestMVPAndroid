@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.db.model.History;
+import com.scrachx.foodfacts.checker.data.module.GlideApp;
 import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.ui.search.ProductsRecyclerViewAdapter;
 import com.scrachx.foodfacts.checker.utils.ImageUtils;
@@ -63,7 +64,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter {
         // - replace the contents of the view with that element
         if (holder instanceof HistoryRecyclerViewAdapter.HistoryViewHolder) {
             HistoryRecyclerViewAdapter.HistoryViewHolder productHolder = (HistoryRecyclerViewAdapter.HistoryViewHolder) holder;
-            Glide.with(context)
+            GlideApp.with(context)
                     .load(productsHistory.get(position).getUrl())
                     .centerCrop()
                     .placeholder(R.drawable.ic_insert_photo_black_24dp)

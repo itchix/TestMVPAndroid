@@ -18,13 +18,14 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.android.tools.build:gradle:3.0.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
     }
 }
 
@@ -32,6 +33,7 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" }
+        google()
     }
 }
 
@@ -43,36 +45,36 @@ task clean(type: Delete) {
 ext {
     // Sdk and tools
     minSdkVersion = 21
-    targetSdkVersion = 25
-    compileSdkVersion = 25
-    buildToolsVersion = '25.0.2'
+    targetSdkVersion = 27
+    compileSdkVersion = 27
+    buildToolsVersion = '27.0.0'
 
     // App dependencies
-    supportLibraryVersion = '25.3.1'
-    gsonVersion = '2.8.0'
-    calligraphyVersion = '2.2.0'
+    supportLibraryVersion = '27.0.2'
+    gsonVersion = '2.8.2'
+    calligraphyVersion = '2.3.0'
 
-    rx2FastAndroidNetworking = '1.0.0'
-    jacksonAndroidNetworking = '1.0.0'
+    rx2FastAndroidNetworking = '1.0.1'
+    jacksonAndroidNetworking = '1.0.1'
 
-    dagger2Version = '2.10'
-    rxjava2Version = '2.0.6'
+    dagger2Version = '2.14.1'
+    rxjava2Version = '2.1.2'
     rxandroidVersion = '2.0.1'
-    butterKnifeVersion = '8.5.1'
-    greenDaoVersion = '3.2.0'
-    placeholderviewVersion = '0.6.1'
-    debugDBVersion = '1.0.0'
-    timberVersion = '4.5.1'
-    commonLang3 = '3.5'
-    glide = '3.7.0'
-    barcodeScanner = '1.9.1'
-    materialDialog ='0.9.4.4'
-    apacheValidator = '1.5.1'
-    mpChart = 'v3.0.2'
+    butterKnifeVersion = '8.8.1'
+    greenDaoVersion = '3.2.2'
+    placeholderviewVersion = '0.7.2'
+    debugDBVersion = '1.0.1'
+    timberVersion = '4.6.0'
+    commonLang3 = '3.7'
+    glide = '4.5.0'
+    barcodeScanner = '1.9.8'
+    materialDialog ='0.9.6.0'
+    apacheValidator = '1.6'
+    mpChart = 'v3.0.3'
     photoView = '2.0.0'
 
     //Test dependencies
     junitVersion = '4.12'
-    espressoVersion = '2.2.2'
-    mockitoVersion = '2.7.1'
+    espressoVersion = '3.0.1'
+    mockitoVersion = '2.13.0'
 }

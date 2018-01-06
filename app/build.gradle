@@ -40,7 +40,6 @@ android {
     }
     defaultConfig {
         multiDexEnabled true
-        jackOptions.enabled = true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -50,6 +49,7 @@ android {
         abortOnError false
         disable 'MissingTranslation'
     }
+    buildToolsVersion '27.0.0'
 }
 
 greendao {
@@ -99,6 +99,7 @@ dependencies {
 
     // glide
     compile "com.github.bumptech.glide:glide:$rootProject.glide"
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glide"
 
     // photoview
     compile "com.github.chrisbanes:PhotoView:$rootProject.photoView"

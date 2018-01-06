@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.scrachx.foodfacts.checker.R;
+import com.scrachx.foodfacts.checker.data.module.GlideApp;
 import com.scrachx.foodfacts.checker.data.network.model.Product;
 import com.scrachx.foodfacts.checker.utils.ImageUtils;
 
@@ -60,7 +61,7 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter {
         // - replace the contents of the view with that element
         if (holder instanceof ProductViewHolder) {
             ProductViewHolder productHolder = (ProductViewHolder) holder;
-            Glide.with(context)
+            GlideApp.with(context)
                     .load(products.get(position).getImageSmallUrl())
                     .centerCrop()
                     .placeholder(R.drawable.ic_insert_photo_black_24dp)
