@@ -15,7 +15,6 @@
 
 package com.scrachx.foodfacts.checker.ui.history;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
@@ -24,6 +23,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.db.model.History;
@@ -33,11 +33,14 @@ import com.scrachx.foodfacts.checker.ui.custom.EndlessRecyclerViewScrollListener
 import com.scrachx.foodfacts.checker.ui.custom.RecyclerItemClickListener;
 import com.scrachx.foodfacts.checker.ui.product.ProductActivity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -47,6 +50,9 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
 
     @Inject
     public HistoryMvpPresenter<HistoryMvpView> mPresenter;
+
+    @BindView(R.id.title_nav_header)
+    public TextView mNavHeader;
 
     private RecyclerView mProductsHistoryRecyclerView;
     private EndlessRecyclerViewScrollListener mScrollListener;
@@ -83,8 +89,12 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
     @Override
     protected void setUp(View view) {
         String grade = "";
-        if(this.getArguments() != null) {
-            grade = convertDescriptionToGrade(this.getArguments().getString("grade"));
+        if (this.getArguments() != null) {
+            String descGrade = this.getArguments().getString("grade");
+            grade = convertDescriptionToGrade(descGrade);
+            if (StringUtils.isNotEmpty(descGrade)) {
+                mNavHeader.setText(getString(R.string.history) + ": " + descGrade);
+            }
         }
 
         mProductsHistoryRecyclerView = view.findViewById(R.id.products_recycler_view);
@@ -173,18 +183,18 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
     }
 
     private String convertDescriptionToGrade(String descGrade) {
-        if(descGrade.equals(getString(R.string.txt_history_stats_desc_a))) {
+        if (getString(R.string.txt_history_stats_desc_a).equals(descGrade)) {
             return "a";
-        } else if(descGrade.equals(getString(R.string.txt_history_stats_desc_b))) {
-            return "a";
-        } else if(descGrade.equals(getString(R.string.txt_history_stats_desc_c))) {
-            return "a";
-        } else if(descGrade.equals(getString(R.string.txt_history_stats_desc_d))) {
-            return "a";
-        } else if(descGrade.equals(getString(R.string.txt_history_stats_desc_e))) {
-            return "a";
-        } else  {
-            return "nc";
+        } else if (getString(R.string.txt_history_stats_desc_b).equals(descGrade)) {
+            return "b";
+        } else if (getString(R.string.txt_history_stats_desc_c).equals(descGrade)) {
+            return "c";
+        } else if (getString(R.string.txt_history_stats_desc_d).equals(descGrade)) {
+            return "d";
+        } else if (getString(R.string.txt_history_stats_desc_e).equals(descGrade)) {
+            return "e";
+        } else {
+            return "";
         }
     }
 

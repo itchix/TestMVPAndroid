@@ -24,6 +24,7 @@
             app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
         <TextView
+            android:id="@+id/title_nav_header"
             style="@style/TextStyle.Heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

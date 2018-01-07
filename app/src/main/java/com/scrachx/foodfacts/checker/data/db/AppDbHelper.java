@@ -51,7 +51,7 @@ public class AppDbHelper implements DbHelper {
     @Override
     public Observable<HistoryItem> getHistory(int page, String grade) {
         return Observable.fromCallable(() -> {
-            if (!StringUtils.isEmpty(grade)) {
+            if (StringUtils.isEmpty(grade)) {
                 return new HistoryItem(mDaoSession.getHistoryDao().queryBuilder().limit(20).offset(page)
                         .orderDesc(HistoryDao.Properties.LastSeen).list(), mDaoSession.getHistoryDao().queryBuilder().count());
             } else {
