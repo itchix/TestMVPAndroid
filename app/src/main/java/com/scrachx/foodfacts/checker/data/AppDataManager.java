@@ -78,8 +78,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<HistoryItem> getHistory(int page) {
-        return mDbHelper.getHistory(page);
+    public Observable<HistoryItem> getHistory(int page, String grade) {
+        return mDbHelper.getHistory(page, grade);
     }
 
     @Override

@@ -163,12 +163,7 @@ public class ProductActivity extends BaseActivity implements ProductMvpView {
         View dialogForm = inflater.inflate(R.layout.dialog_allergens, null, false);
 
         Button buttonOk = dialogForm.findViewById(R.id.button_ok);
-        buttonOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDialog.dismiss();
-            }
-        });
+        buttonOk.setOnClickListener(view -> mDialog.dismiss());
         ArrayList<AllergensItem> arrayOfAllergens = new ArrayList<AllergensItem>();
         AllergensViewAdapter adapter = new AllergensViewAdapter(this, arrayOfAllergens);
         ListView listView = dialogForm.findViewById(R.id.list_view_allergens);

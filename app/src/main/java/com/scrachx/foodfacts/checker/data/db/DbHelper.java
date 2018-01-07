@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2017 MINDORKS NEXTGEN PRIVATE LIMITED
+ * Copyright (C) 20/05/2017 Scot Scriven
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     https://mindorks.com/license/apache-v2
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,16 +26,11 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-
-/**
- * Created by janisharali on 08/12/16.
- */
-
 public interface DbHelper {
 
     Observable<Long> insertHistory(final History history);
 
-    Observable<HistoryItem> getHistory(final int page);
+    Observable<HistoryItem> getHistory(final int page, final String grade);
 
     Observable<List<History>> getHistoryStats();
 

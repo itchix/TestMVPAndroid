@@ -59,7 +59,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        if (holder instanceof HistoryRecyclerViewAdapter.HistoryViewHolder) {
+        if (holder instanceof HistoryRecyclerViewAdapter.HistoryViewHolder && !productsHistory.isEmpty()) {
             HistoryRecyclerViewAdapter.HistoryViewHolder productHolder = (HistoryRecyclerViewAdapter.HistoryViewHolder) holder;
             GlideApp.with(context)
                     .load(productsHistory.get(position).getUrl())

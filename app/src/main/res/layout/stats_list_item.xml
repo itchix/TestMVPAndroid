@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:clickable="true"
-    android:focusable="true"
     android:background="?android:attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/img_stats"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_margin="@dimen/spacing_normal"/>
+        android:layout_margin="@dimen/spacing_normal"
+        android:contentDescription="Color info" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,8 +28,6 @@
         android:id="@+id/stats_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_column="3"
-        android:layout_row="0"
         android:textSize="@dimen/font_large"
         tools:text="42"
         android:layout_marginLeft="@dimen/spacing_normal"
@@ -42,12 +39,11 @@
         android:id="@+id/imageView"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_column="4"
-        android:layout_row="0"
         android:src="@drawable/ic_chevron_right_grey_24dp"
         android:layout_marginLeft="@dimen/spacing_normal"
         android:layout_marginRight="@dimen/spacing_normal"
         android:layout_alignTop="@+id/name_description"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:contentDescription="Arrow" />
 
 </RelativeLayout>

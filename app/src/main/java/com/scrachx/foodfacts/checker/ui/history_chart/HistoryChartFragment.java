@@ -60,9 +60,6 @@ public class HistoryChartFragment extends BaseFragment implements HistoryChartMv
     @BindView(R.id.history_chart)
     public PieChart mPieChart;
 
-    @BindView(R.id.but)
-    public Button mBut;
-
     @BindView(R.id.list_view_stats)
     public ListView mListStats;
 
@@ -197,12 +194,7 @@ public class HistoryChartFragment extends BaseFragment implements HistoryChartMv
 
     @OnItemClick(R.id.list_view_stats)
     public void onItemClick(AdapterView<?> parent, int position) {
-        Timber.i("Test");
-    }
-
-    @OnClick(R.id.but)
-    public void onButClick() {
-        Timber.i("Test");
+        mPresenter.onLoadHistoryGrade(position);
     }
 
 }

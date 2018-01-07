@@ -34,10 +34,10 @@ public class HistoryPresenter<V extends HistoryMvpView> extends BasePresenter<V>
     }
 
     @Override
-    public void onLoadProducts(int page) {
+    public void onLoadProducts(int page, String grade) {
         getMvpView().showLoading();
         getCompositeDisposable().add(getDataManager()
-                .getHistory(page)
+                .getHistory(page, grade)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(historyItem -> {
@@ -47,6 +47,7 @@ public class HistoryPresenter<V extends HistoryMvpView> extends BasePresenter<V>
                     if (historyItem != null) {
                         getMvpView().loadHistory(historyItem.getProductsHistory(), historyItem.getCount());
                     }
+                    getMvpView().hideLoading();
                 }));
     }
 
@@ -62,7 +63,6 @@ public class HistoryPresenter<V extends HistoryMvpView> extends BasePresenter<V>
                         return;
                     }
                     if (stateProduct != null) {
-                        getMvpView().hideLoading();
                         getMvpView().openPageProduct(stateProduct);
                     }
                     getMvpView().hideLoading();

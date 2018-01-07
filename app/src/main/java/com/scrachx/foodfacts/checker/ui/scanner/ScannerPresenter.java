@@ -70,7 +70,8 @@ public class ScannerPresenter<V extends ScannerMvpView> extends BasePresenter<V>
 
     @Override
     public void saveProduct(Product product) {
-        History history = new History(product.getProductName(), product.getBrands(), product.getImageFrontUrl(), new Date(), product.getCode(), product.getQuantity(), product.getNutritionGradeFr());
+        History history = new History(product.getProductName(), product.getBrands(), product.getImageFrontUrl()
+                , new Date(), product.getCode(), product.getQuantity(), product.getNutritionGradeFr());
         getCompositeDisposable().add(getDataManager()
                 .insertHistory(history)
                 .subscribeOn(Schedulers.io())

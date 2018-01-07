@@ -15,6 +15,7 @@
 
 package com.scrachx.foodfacts.checker.ui.history;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
@@ -81,6 +82,11 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
 
     @Override
     protected void setUp(View view) {
+        String grade = "";
+        if(this.getArguments() != null) {
+            grade = convertDescriptionToGrade(this.getArguments().getString("grade"));
+        }
+
         mProductsHistoryRecyclerView = view.findViewById(R.id.products_recycler_view);
         mProductsHistory = new ArrayList<>();
 
@@ -89,7 +95,7 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
         mProductsHistoryRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getBaseActivity());
         mProductsHistoryRecyclerView.setLayoutManager(mLayoutManager);
 
         // use VERTICAL divider
@@ -97,11 +103,12 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
         mProductsHistoryRecyclerView.addItemDecoration(dividerItemDecoration);
 
         // Retain an instance so that you can call `resetState()` for fresh searches
+        String finalGrade = grade;
         mScrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                if(mProductsHistory.size() < mCountProducts) {
-                    mPresenter.onLoadProducts(page);
+                if (mProductsHistory.size() < mCountProducts) {
+                    mPresenter.onLoadProducts(page, finalGrade);
                 }
             }
         };
@@ -114,14 +121,14 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
                     @Override
                     public void onItemClick(View view, int position) {
                         History hp = ((HistoryRecyclerViewAdapter) mProductsHistoryRecyclerView.getAdapter()).getHistory(position);
-                        if(hp != null) {
+                        if (hp != null) {
                             mPresenter.loadProduct(hp.getBarcode());
                         }
                     }
                 })
         );
 
-        mPresenter.onLoadProducts(0);
+        mPresenter.onLoadProducts(0, grade);
     }
 
     @OnClick(R.id.nav_back_btn)
@@ -137,10 +144,10 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
 
     @Override
     public void loadHistory(List<History> productsHistory, long numberOfProductsHistory) {
-        mCountProducts = (int)numberOfProductsHistory;
-        if(mProductsHistoryRecyclerView.getAdapter() == null) {
+        mCountProducts = (int) numberOfProductsHistory;
+        if (mProductsHistoryRecyclerView.getAdapter() == null) {
             mProductsHistory.addAll(productsHistory);
-            if(mProductsHistory.size() < mCountProducts) {
+            if (mProductsHistory.size() < mCountProducts) {
                 mProductsHistory.add(null);
             }
             HistoryRecyclerViewAdapter adapter = new HistoryRecyclerViewAdapter(mProductsHistory);
@@ -150,7 +157,7 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
             if (mProductsHistory.size() - 1 < mCountProducts + 1) {
                 mProductsHistory.remove(mProductsHistory.size() - 1);
                 mProductsHistory.addAll(productsHistory);
-                if(mProductsHistory.size() < mCountProducts) {
+                if (mProductsHistory.size() < mCountProducts) {
                     mProductsHistory.add(null);
                 }
                 mProductsHistoryRecyclerView.getAdapter().notifyItemRangeChanged(posStart - 1, mProductsHistory.size() - 1);
@@ -163,6 +170,22 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
         Bundle args = new Bundle();
         args.putParcelable("state", stateProduct);
         startActivity(ProductActivity.getStartIntent(this.getActivity(), args));
+    }
+
+    private String convertDescriptionToGrade(String descGrade) {
+        if(descGrade.equals(getString(R.string.txt_history_stats_desc_a))) {
+            return "a";
+        } else if(descGrade.equals(getString(R.string.txt_history_stats_desc_b))) {
+            return "a";
+        } else if(descGrade.equals(getString(R.string.txt_history_stats_desc_c))) {
+            return "a";
+        } else if(descGrade.equals(getString(R.string.txt_history_stats_desc_d))) {
+            return "a";
+        } else if(descGrade.equals(getString(R.string.txt_history_stats_desc_e))) {
+            return "a";
+        } else  {
+            return "nc";
+        }
     }
 
 }
