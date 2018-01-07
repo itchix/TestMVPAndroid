@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 20/05/2017 Scot Scriven
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License
+ */
+
 package com.scrachx.foodfacts.checker.ui.history;
 
 import android.os.Bundle;
@@ -25,16 +40,12 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by scots on 08/05/2017.
- */
-
 public class HistoryFragment extends BaseFragment implements HistoryMvpView {
 
     public static final String TAG = "HistoryFragment";
 
     @Inject
-    HistoryMvpPresenter<HistoryMvpView> mPresenter;
+    public HistoryMvpPresenter<HistoryMvpView> mPresenter;
 
     private RecyclerView mProductsHistoryRecyclerView;
     private EndlessRecyclerViewScrollListener mScrollListener;
@@ -43,6 +54,14 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
 
     public static HistoryFragment newInstance() {
         Bundle args = new Bundle();
+        HistoryFragment fragment = new HistoryFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static HistoryFragment newInstance(String grade) {
+        Bundle args = new Bundle();
+        args.putString("grade", grade);
         HistoryFragment fragment = new HistoryFragment();
         fragment.setArguments(args);
         return fragment;
@@ -62,9 +81,7 @@ public class HistoryFragment extends BaseFragment implements HistoryMvpView {
 
     @Override
     protected void setUp(View view) {
-
-        mProductsHistoryRecyclerView = (RecyclerView) view.findViewById(R.id.products_recycler_view);
-
+        mProductsHistoryRecyclerView = view.findViewById(R.id.products_recycler_view);
         mProductsHistory = new ArrayList<>();
 
         // use this setting to improve performance if you know that changes

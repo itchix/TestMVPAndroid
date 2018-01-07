@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 20/05/2017 Scot Scriven
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License
+ */
+
 package com.scrachx.foodfacts.checker.ui.history_chart;
 
 import android.graphics.Color;
@@ -8,6 +23,8 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -18,6 +35,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.db.model.History;
 import com.scrachx.foodfacts.checker.ui.base.BaseFragment;
+import com.scrachx.foodfacts.checker.ui.history.HistoryFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,24 +46,25 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
-
-/**
- * Created by scots on 21/05/2017.
- */
+import timber.log.Timber;
 
 public class HistoryChartFragment extends BaseFragment implements HistoryChartMvpView {
 
     public static final String TAG = "HistoryChartFragment";
 
     @Inject
-    HistoryChartMvpPresenter<HistoryChartMvpView> mPresenter;
+    public HistoryChartMvpPresenter<HistoryChartMvpView> mPresenter;
 
-    @BindView(com.scrachx.foodfacts.checker.R.id.history_chart)
-    PieChart mPieChart;
+    @BindView(R.id.history_chart)
+    public PieChart mPieChart;
+
+    @BindView(R.id.but)
+    public Button mBut;
 
     @BindView(R.id.list_view_stats)
-    ListView mListStats;
+    public ListView mListStats;
 
     public static HistoryChartFragment newInstance() {
         Bundle args = new Bundle();
@@ -70,7 +89,7 @@ public class HistoryChartFragment extends BaseFragment implements HistoryChartMv
     public void loadHistoryStats(List<History> productsHistory) {
         int total = productsHistory.size();
         Map<String, Integer> result = new HashMap<>();
-        for (History history: productsHistory) {
+        for (History history : productsHistory) {
             if (history.getGrade() == null) {
                 if (result.containsKey("nc")) {
                     result.put(history.getGrade(), result.get("nc") + 1);
@@ -78,7 +97,6 @@ public class HistoryChartFragment extends BaseFragment implements HistoryChartMv
                     result.put("nc", 1);
                 }
             } else {
-
                 if (result.containsKey(history.getGrade())) {
                     result.put(history.getGrade(), result.get(history.getGrade()) + 1);
                 } else {
@@ -96,48 +114,48 @@ public class HistoryChartFragment extends BaseFragment implements HistoryChartMv
         ArrayList<String> percent = new ArrayList<String>();
         for (Map.Entry<String, Integer> entry : result.entrySet()) {
             arrayDrawGraph.add(entry.getValue());
-            float valuePercent = ((float)entry.getValue()/(float)total)*100;
-            percent.add(String.valueOf(valuePercent)+"%");
+            float valuePercent = ((float) entry.getValue() / (float) total) * 100;
+            percent.add(String.valueOf(valuePercent) + "%");
             int color;
             Drawable colorD;
             String description;
             switch (entry.getKey()) {
                 case "a":
                     color = R.color.green_dark_scheme;
-                    colorD = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle_dark_green_24dp);
+                    colorD = ContextCompat.getDrawable(getBaseActivity(), R.drawable.ic_circle_dark_green_24dp);
                     description = getString(R.string.txt_history_stats_desc_a);
                     break;
                 case "b":
                     color = R.color.green_light_scheme;
-                    colorD = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle_green_24dp);
+                    colorD = ContextCompat.getDrawable(getBaseActivity(), R.drawable.ic_circle_green_24dp);
                     description = getString(R.string.txt_history_stats_desc_b);
                     break;
                 case "c":
                     color = R.color.yellow_dark_scheme;
-                    colorD = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle_yellow_24dp);
+                    colorD = ContextCompat.getDrawable(getBaseActivity(), R.drawable.ic_circle_yellow_24dp);
                     description = getString(R.string.txt_history_stats_desc_c);
                     break;
                 case "d":
                     color = R.color.orange_scheme;
-                    colorD = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle_orange_24dp);
+                    colorD = ContextCompat.getDrawable(getBaseActivity(), R.drawable.ic_circle_orange_24dp);
                     description = getString(R.string.txt_history_stats_desc_d);
                     break;
                 case "e":
                     color = R.color.red_scheme;
-                    colorD = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle_red_24dp);
+                    colorD = ContextCompat.getDrawable(getBaseActivity(), R.drawable.ic_circle_red_24dp);
                     description = getString(R.string.txt_history_stats_desc_e);
                     break;
                 default:
                     color = R.color.grey_scheme;
-                    colorD = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle_grey_24dp);
+                    colorD = ContextCompat.getDrawable(getBaseActivity(), R.drawable.ic_circle_grey_24dp);
                     description = getString(R.string.txt_history_stats_desc_nc);
                     break;
             }
             adapter.add(new HistoryStatsItem(description, entry.getValue(), colorD));
-            colors.add(ContextCompat.getColor(getActivity(), color));
+            colors.add(ContextCompat.getColor(getBaseActivity(), color));
         }
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
-        for (int i=0; i < result.size(); i++) {
+        for (int i = 0; i < result.size(); i++) {
             entries.add(new PieEntry(arrayDrawGraph.get(i), percent.get(i)));
         }
         PieDataSet dataset = new PieDataSet(entries, "");
@@ -162,15 +180,29 @@ public class HistoryChartFragment extends BaseFragment implements HistoryChartMv
     }
 
     @Override
+    public void loadHistoryGrade(int position) {
+        HistoryStatsItem historyItem = (HistoryStatsItem) mListStats.getItemAtPosition(position);
+        getBaseActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .add(R.id.cl_root_view, HistoryFragment.newInstance(historyItem.getName()), HistoryFragment.TAG)
+                .commit();
+    }
+
+    @Override
     protected void setUp(View view) {
         mPresenter.onLoadHistoryStats();
     }
 
     @OnItemClick(R.id.list_view_stats)
-    protected void OnClickListStats(int position) {
-        HistoryStatsItem historyItem = (HistoryStatsItem) mListStats.getItemAtPosition(position);
-        // TODO : go to history page
-        // TODO : title page
+    public void onItemClick(AdapterView<?> parent, int position) {
+        Timber.i("Test");
+    }
+
+    @OnClick(R.id.but)
+    public void onButClick() {
+        Timber.i("Test");
     }
 
 }

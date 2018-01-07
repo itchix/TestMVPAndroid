@@ -13,4 +13,6 @@ public interface HistoryChartMvpView extends MvpView {
 
     void loadHistoryStats(List<History> productsHistory);
 
+    void loadHistoryGrade(int position);
+
 }

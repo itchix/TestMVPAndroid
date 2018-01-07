@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2017 MINDORKS NEXTGEN PRIVATE LIMITED
+ * Copyright (C) 20/05/2017 Scot Scriven
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     https://mindorks.com/license/apache-v2
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,10 +36,10 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class MvpApp extends Application {
 
     @Inject
-    DataManager mDataManager;
+    public DataManager mDataManager;
 
     @Inject
-    CalligraphyConfig mCalligraphyConfig;
+    public CalligraphyConfig mCalligraphyConfig;
 
     private ApplicationComponent mApplicationComponent;
 
@@ -77,4 +77,5 @@ public class MvpApp extends Application {
     public void setComponent(ApplicationComponent applicationComponent) {
         mApplicationComponent = applicationComponent;
     }
+
 }

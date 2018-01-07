@@ -10,12 +10,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.db.model.History;
 import com.scrachx.foodfacts.checker.data.module.GlideApp;
-import com.scrachx.foodfacts.checker.data.network.model.Product;
-import com.scrachx.foodfacts.checker.ui.search.ProductsRecyclerViewAdapter;
 import com.scrachx.foodfacts.checker.utils.ImageUtils;
 
 import java.util.List;
@@ -35,7 +32,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter {
     private Context context;
     private final List<History> productsHistory;
 
-    public HistoryRecyclerViewAdapter(List<History> items){
+    public HistoryRecyclerViewAdapter(List<History> items) {
         this.productsHistory = items;
     }
 
@@ -43,7 +40,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
 
-        int layoutResourceId = viewType == VIEW_ITEM ? R.layout.products_list_item: R.layout.progressbar_endless_list;
+        int layoutResourceId = viewType == VIEW_ITEM ? R.layout.products_list_item : R.layout.progressbar_endless_list;
         View v = LayoutInflater.from(parent.getContext()).inflate(layoutResourceId, parent, false);
 
         if (viewType == VIEW_ITEM) {

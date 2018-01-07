@@ -30,17 +30,19 @@ public class HistoryChartPresenter<V extends HistoryChartMvpView> extends BasePr
                 .getHistoryStats()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<History>>() {
-                    @Override
-                    public void accept(List<History> productsHistory) throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-
-                        if (productsHistory.size() > 0) {
-                            getMvpView().loadHistoryStats(productsHistory);
-                        }
+                .subscribe(productsHistory -> {
+                    if (!isViewAttached()) {
+                        return;
+                    }
+                    if (productsHistory.size() > 0) {
+                        getMvpView().loadHistoryStats(productsHistory);
                     }
                 }));
     }
+
+    @Override
+    public void onLoadHistoryGrade(int position) {
+        getMvpView().loadHistoryGrade(position);
+    }
+
 }

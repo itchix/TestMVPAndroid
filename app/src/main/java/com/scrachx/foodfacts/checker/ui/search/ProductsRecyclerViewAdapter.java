@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.scrachx.foodfacts.checker.R;
 import com.scrachx.foodfacts.checker.data.module.GlideApp;
 import com.scrachx.foodfacts.checker.data.network.model.Product;

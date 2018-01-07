@@ -11,4 +11,6 @@ public interface HistoryChartMvpPresenter<V extends HistoryChartMvpView> extends
 
     void onLoadHistoryStats();
 
+    void onLoadHistoryGrade(int position);
+
 }
