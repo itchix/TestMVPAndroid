@@ -35,14 +35,14 @@
     <string name="scan">Scan</string>
     <string name="history">History</string>
     <string name="allergens">Allergen alert</string>
-    <string name="constribution">Your contribution</string>
+    <string name="constribution">Your contributions</string>
     <string name="about">About</string>
     <string name="logout">Logout</string>
 
     <!--App Message-->
     <string name="api_retry_error">Please retry!</string>
     <string name="api_default_error">Something wrong happened!</string>
-    <string name="some_error">Some Error Occurred!</string>
+    <string name="some_error">Some error occurred!</string>
     <string name="connection_error">Internet connection lost!</string>
 
     <!--Login-->
@@ -52,9 +52,9 @@
     <string name="password">Password</string>
 
     <!--Login Validation-->
-    <string name="empty_email">Please provide a non empty email.</string>
+    <string name="empty_email">Please provide a non-empty email.</string>
     <string name="invalid_email">Please provide a valid email.</string>
-    <string name="empty_password">Please provide a non empty password.</string>
+    <string name="empty_password">Please provide a non-empty password.</string>
 
     <!-- Nav Drawer Product Menu Items -->
     <string-array name="nav_drawer_items_product">
@@ -254,10 +254,10 @@
     <string name="txt_on">On</string>
     <string name="txt_off">Off</string>
     <string name="txt_allergens_detected">Allergens detected :</string>
-    <string name="txt_charts_begining">Since the begining</string>
+    <string name="txt_charts_begining">Since the beginning</string>
     <string name="txt_products_viewed">products viewed</string>
 
-    <string name="txt_history_stats_title">History statistics</string>
+    <string name="txt_history_stats_title">Food history statistics</string>
     <string name="txt_history_stats_desc_a">very good</string>
     <string name="txt_history_stats_desc_b">good</string>
     <string name="txt_history_stats_desc_c">acceptable</string>
